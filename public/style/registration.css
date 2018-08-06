@@ -1,0 +1,141 @@
+@font-face{
+    font-family: 'bord';
+    src: url(../fonts/3892.ttf);
+    font-style: normal;
+    font-weight: normal;
+}
+@font-face{
+    font-family: 'bord-h1';
+    src: url(../fonts/3892.ttf);
+    font-style: normal;
+    font-weight: normal;
+}
+
+main.mainRegistration h1 {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+    /* padding-top:2em; */
+    font-family: 'bord-h1';
+}
+
+main.mainRegistration form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 22em;
+}
+
+input, label, div.genderRadio p, textarea {
+    font-family: 'bord';
+
+}
+
+input {
+    color: white;
+    border:1px solid;
+    background: none;
+    border: 0.4em solid transparent;
+    border-image-repeat: repeat;
+    border-image-slice: 50 0;
+    border-image-width: 0 0 3;
+    border-image-outset: 0.5;
+    border-image-source: url(../image/border3.png);
+    outline: none;
+    font-size: 1em;
+}
+
+form[name="registration"]  lable::after{
+    content: 'Введенные данные не соответствуют условию';
+    position: absolute;
+    left:110%;
+    width: 80%
+}
+
+label span {
+    font-size:1em;
+    margin: auto 0;
+
+}
+label{
+    color: white;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 100%;
+    cursor: pointer;
+
+}
+span#error {
+    color: red;
+    display: inline;
+    left: 110%;
+    width: 50%;
+    position: absolute;
+    transform: translateY(-100%);
+}
+
+input[type='radio']{
+    display: none;
+}
+
+input[type='radio'] + span::after{
+    content: '';
+    background: url(../image/radio.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 2em;
+    display: inline-block;
+    width: 2em;
+    transition: 0.2s ease;
+}
+input[type='radio']:checked + span::after {
+    background: url(../image/radio_chek.png);
+    content: '';
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 2em;
+    display: inline-block;
+    width: 2em;
+    transition: 0.2s ease;
+}
+
+div.genderRadio{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+div.genderRadio p{
+    flex-basis: 3em;
+    flex-grow: 3;
+}
+
+div.genderRadio label{
+    flex-basis: 3em;
+    flex-grow: 1;
+}
+
+input[type="submit"]{
+    position: relative;
+    left: 55%;
+    transition: 0.2s ease;
+    cursor: pointer;
+    transform: scale(1);
+    transition-property: transform;
+}
+input[type="reset"]:hover{
+    color:#bee426;
+    transform: scale(1.2);
+}
+#response {
+    font-size: 1.5em;
+    padding: 1em;
+}
+#okRegistr {
+    position: relative;
+    left: 70%;
+    cursor: pointer;
+}

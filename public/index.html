@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+        <link rel="stylesheet"  href="./style/base.css">
+        
+        <script src="./script/modalWindow.js"></script>
+    </head>
+    <body>
+        <div class="modalWindowEnter">
+            <form action="/login" method="POST">
+                <h1>Для входа введите ваши личные данные:</h1>
+               <label for="email">
+                   <span>Отчество:</span><input type="text" name="userEmail" id="email">
+               </label>
+               <label for="password">
+                   <span>Пароль:</span><input type="password" name="userPassword" id="password">
+               </label>
+               <div class="button">
+                   <input type="button" name="submin" id="chekin">
+                   <input type="button" name="cancel" value="Отмена">
+               </div>
+            </form>
+        </div>
+        
+        <header>
+            <menu>
+                <ul>
+                    <li id="enter"><a href="#">ВХОД</a></li>
+                    <li><a href="./registration.html">Регистрация</a></li>
+                </ul>
+            </menu>
+            <a href="./index.html">
+                <figure>
+                    <img src="./image/student.png" alt="student">
+                    <figcaption>On-line</figcaption>
+                </figure>
+            </a>
+        </header>
+        <main class="mainIndex">
+            <div class="background">
+                <div class="sky">
+
+                </div>
+                <div class="land">
+
+                </div>
+            </div>
+            <h1>ВТОРОЙ ДНЕВНИК on-line</h1>
+            <div class="blockquote">
+                <blockquote>
+                    Неграмотными людьми 21 века будут не те, кто не умеет читать и писать, а те, кто не умеет учиться и переучиваться. 
+                </blockquote>
+                <cite>
+                    <a href="https://ru.wikipedia.org/wiki/%D0%A2%D0%BE%D1%84%D1%84%D0%BB%D0%B5%D1%80,_%D0%AD%D0%BB%D0%B2%D0%B8%D0%BD" title="американский философ, социолог и футуролог, один из авторов концепции постиндустриального общества">Элвин Тоффлер</a>
+                </cite>
+            </div>
+             <img src="./image/silhouettes2.PNG" alt="silhouettes students">
+        </main>
+    </body>
+    <footer>
+    </footer>
+</html>

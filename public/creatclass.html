@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>student journal on-line</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet"  href="./style/base.css">
+        <script src="./script/modalWindow.js"></script>
+    </head>
+    <body>
+        <header>
+            <menu>
+                <ul>
+                    <li id="enter"><a href="#">ВХОД</a></li>
+                    <li><a href="./checkin.html">Регистрация</a></li>
+                </ul>
+            </menu>
+            <a href="./index.html">
+                <figure>
+                    <img src="./image/student.png" alt="student">
+                    <figcaption>On-line</figcaption>
+                </figure>
+            </a>
+        </header>
+         <main class="mainCreatClass">
+             <form action="/" method="post">
+            
+                <label for="className">
+                    Введите номер нового класса
+                    <input type="text" name="className" id="className" placeholder="11 'A'">
+                </label>
+    
+                <h1>Добавить ученика:</h1> 
+                <input type="text" name="surname" placeholder="Фамилия">
+                <input type="text" name="name" placeholder="Имя">
+                <input type="text" name="fatherName" placeholder="Отчечтво">
+                <input type="date" name="dateBirth" placeholder="дд.мм.гггг">
+            </form>
+        </main>
+    </body>
+    <footer>
+
+    </footer>
+</html>
