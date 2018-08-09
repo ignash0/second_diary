@@ -13,6 +13,7 @@ console.log('Asynchronous read:' + date1);
 });
 
 app.use(express.static('public'));
+app.use(express.cookieParser()); 
 app.use(bodyParser.json());
 
 app.use(session({
@@ -21,34 +22,49 @@ app.use(session({
 }));
 
 app.post('/login', function (req,res) {
-  var foundUser;
-
+  
   fs.readFile(__dirname + '/bd/user.json', function (err, date) {
-    var users = JSON.parse(date);
-    for (var i =0; i < users.length; i++){
-      var user = user[i];
-      if (user.userEmail === req.body.userEmail && user.userPassword === req.body.userPassword) {
-        foundUser = user;
-        break
+    if (err) {
+      return console.log(err)
+    } else {
+      var foundUser,
+      users;
+  
+      users = JSON.parse(date);
+      for (var i =0; i < users.length; i++){
+        var user = users[i];
+        console.log(req.body);
+        if (user.userEmail === req.body.userEmail && user.userPassword === req.body.userPassword) {
+          foundUser = user;
+          break
+        }
+      }
+      if (foundUser !== undefined) {
+        res.cookie('dataUser', {email: foundUser.userEmail,
+          name: foundUser.userName,
+          surname: foundUser.userSurname,
+          statue: foundUser.statue,
+        });
+        res.send('yes');
+    
+      } else {
+        console.log('login failed');
+        res.send('no')
       }
     }
   });
-  if (foundUser !== undefined) {
-      req.session.username = `${foundUser.userName} ${foundUser.userSurname}`;
-      consol.log('Login', req.session.username)
-  } else {
-    console.log('login failed');
-    res.send('login error')
-  }
 
-})
+});
 
+app.get('/logout', function (req,res){
+  res.cookie('dataUser', '', { expires: -1 })
+});
 
 app.post('/', function (req, res) {
   console.log('body:', req.body);
 
   var dateReq = req.body;
-  dateReq.statue = 'admin';
+  dateReq.statue = 'curator';
   fs.readFile(__dirname + '/bd/user.json', function (err, date) {
     if (err) {
       return console.log(err)
@@ -84,6 +100,6 @@ app.post('/', function (req, res) {
 
 
 
-app.listen(8000, function () {
-  console.log('Exampl app listening on port 8000!');
+app.listen(8001, function () {
+  console.log('Exampl app listening on port 8001!');
 });;

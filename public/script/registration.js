@@ -1,31 +1,3 @@
-function formValueJson(formName) {
-    const formValid = document.querySelector(`[name=${formName}]`),
-        formElements = formValid.elements,
-        result = {};
-    let resultJson;
-    
-    formValid.addEventListener('submit', event => {
-        event.preventDefault();
-    });
-    
-    for (let i = 0; i < formElements.length ; i++) {
-    let input = formElements[i];
-
-        if ((input.type === 'radio' && !input.checked) || input.value === '') {
-            continue
-        }
-        const key = input.name,
-            value = input.value;
-        result[key] = value;
-    };
-
-    resultJson = JSON.stringify(result);
-
-    return  resultJson;
-};
-
-
-
 const formTest = document.querySelector(`[name=${'registration'}]`),
     formElements = formTest.elements,
     valuesTest = {
@@ -35,6 +7,7 @@ const formTest = document.querySelector(`[name=${'registration'}]`),
         testValuePassword: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}/,
     },
     valueResultsTests = [];
+
 for (let i = 0; i <formElements.length; i++) {
     const formElement = formElements[i];
     formElement.addEventListener('focus', event => {
@@ -87,7 +60,7 @@ formTest.addEventListener('submit', event => {
 });
 
 const registrationButton = document.getElementById('registrationButton');
-let response;
+
 
 registrationButton.addEventListener('click', () => {
 
@@ -103,37 +76,10 @@ registrationButton.addEventListener('click', () => {
     filledAllValuesElementsForm = allValuesElementsForm.every(item => item !== '');
     trueAllValueResultsTests = valueResultsTests.every(item => item ===true);
     if (filledAllValuesElementsForm && trueAllValueResultsTests) {
-        const valueForm = formValueJson('registration');
-        console.log(valueForm)
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/');
         
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.send(valueForm);
-        xhr.onload = function(){
-            response = this.responseText;
-
-            const h1Res = document.querySelector('#response'),
-                modalWindowReg = document.querySelector('.modalWindowRegistration'),
-                buttonOnModalReg = document.getElementById('okRegistr'),
-                buttonOnModalRegA = document.getElementById('aRegistr');
-
-            modalWindowReg.classList.add('openModalWindow');
-            let text;
-            if (response === 'yes') {
-                text = ' Вы успешно зарегистрированны! Для дальнейшей работы войдите в на сайт.';
-                buttonOnModalRegA.setAttribute('href', './index.html')
-            } else {
-                text = 'Введенный e-mail уже использутся другим пользователем. Пройдите регистрацию еще раз.';
-                buttonOnModalReg.addEventListener('click', () => {
-                    modalWindowReg.classList.remove('openModalWindow');
-                })
-            }
-            
-            h1Res.innerText = text;
-            console.log(response);
-
-        };
+        const valueForm = formValueJson('registration');
+        
+        formSubmitPostJson('/',valueForm, responseModalWindow);
 
        
     } else {
@@ -152,7 +98,71 @@ function resultTest(index,testName,elemForErroText, value) {
         elemForErroText.innerText = 'Введенные данные не соответствуют условию';
         elemForErroText.style.color = 'red';
     }
+};
+
+function formValueJson(formName) {
+    const formValid = document.querySelector(`[name=${formName}]`),
+        formElements = formValid.elements,
+        result = {};
+    let resultJson;
+    
+    formValid.addEventListener('submit', event => {
+        event.preventDefault();
+    });
+    
+    for (let i = 0; i < formElements.length ; i++) {
+    let input = formElements[i];
+
+        if ((input.type === 'radio' && !input.checked) || input.value === '') {
+            continue
+        }
+        const key = input.name,
+            value = input.value;
+        result[key] = value;
+    };
+
+    resultJson = JSON.stringify(result);
+
+    return  resultJson;
+};
+
+function formSubmitPostJson(url,data, callback){
+    let response;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.send(data);
+    xhr.onload = function(){
+        response = this.responseText;
+        callback(response);
+    };
+};
+
+function responseModalWindow(response){
+
+    const h1Res = document.querySelector('#response'),
+        modalWindowReg = document.querySelector('.modalWindowRegistration'),
+        buttonOnModalReg = document.getElementById('okRegistr'),
+        buttonOnModalRegA = document.getElementById('aRegistr');
+
+    modalWindowReg.classList.add('openModalWindow');
+    let text;
+    if (response === 'yes') {
+        text = ' Вы успешно зарегистрированны! Для дальнейшей работы войдите на сайт под своим именем.';
+        buttonOnModalRegA.setAttribute('href', './index.html')
+    } else {
+        text = 'Введенный e-mail уже использутся другим пользователем. Пройдите регистрацию еще раз.';
+        buttonOnModalReg.addEventListener('click', () => {
+            modalWindowReg.classList.remove('openModalWindow');
+        })
+    }
+    
+    h1Res.innerText = text;
+    console.log(response);
 }
+
 
 
 

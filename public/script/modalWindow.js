@@ -3,7 +3,7 @@ window.onload = function () {
 
     const buttonEnter = document.getElementById('enter'),
         modalWindowEnter = document.querySelector('.modalWindowEnter'),
-        cancelButton = document.querySelector("[name='cancel']");
+        cancelButton = document.querySelector("#cancel");
 
     buttonEnter.addEventListener('click', () => {
         modalWindowEnter.classList.add('openModalWindow');

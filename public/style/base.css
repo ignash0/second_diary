@@ -1,4 +1,14 @@
+@font-face {
+    font-family: "OpenSansRegular";
+    src: url("../fonts/OpenSansRegular/OpenSansRegular.eot");
+    src: url("../fonts/OpenSansRegular/OpenSansRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/OpenSansRegular/OpenSansRegular.woff") format("woff"),
+    url("../fonts/OpenSansRegular/OpenSansRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+  }
             body {
+                font-family: "OpenSansRegular";
                 height: 100vh;
                 background: url('../image/background-body.jpg');
                 background-size:100% 100%;
@@ -139,7 +149,8 @@
                 left: 0;
                 opacity: 1;
             }
-            .modalWindowEnter form, .serverMesseg{
+  
+            .modalWindowMessige, .serverMesseg{
                 color:white;
                 /* background-color: rgb(203,204,204, 1); */
                 position: absolute;
@@ -153,8 +164,10 @@
                 height: auto;
                 padding: 0 0 1.5em 0;
                 border: 0.1em solid;
+                font-style: italic;
             }
             .modalWindowEnter form label{
+                padding: 0.5em;
                 height: auto;
                 width: 65%;
                 display: flex;
@@ -162,17 +175,45 @@
                 justify-content: space-between;
                 margin: 0 auto;
             }
-            .modalWindowEnter form h1 {
+            .modalWindowMessige h1 {
                 font-size: 1.5em;
                 width: 80%;
                 text-align: center;
                 margin:0 auto;
                 padding: 1em 0;
             }
-            .modalWindowEnter form div.button {
+            .modalWindowEnter label input{
+                text-indent: 1em;
+                background-color: rgba(255, 255, 255, 0.5);
+                outline: none;
+                border: none;
+                width: 15em;
+            }
+            .modalWindowEnter label input:focus{
+                background-color: rgba(255, 255, 255, 1);
+            }
+  
+            div.button {
+                border: 0.1em;
                 text-align: right;
                 padding-right: 4.5em;
-
+            }
+            div.button button{
+                border-radius: 0.5em;
+                cursor: pointer;
+                height: 2em;
+                font-style: italic;
+                font-weight: bold;
+                outline: none;
+                transition: 0.2s ease;
+                border: none;
+            }
+            div.button button:hover{
+                background-color: white;
+                transform: scale(1.05)
+            }
+            #checkin{
+                width: 3em;
             }
 
 
