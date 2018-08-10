@@ -1,0 +1,83 @@
+@font-face {
+	font-family: 'Segoe Print';
+	src: url('SegoePrint.eot');
+	src: local('Segoe Print'), local('SegoePrint'),
+		url('SegoePrint.eot?#iefix') format('embedded-opentype'),
+		url('SegoePrint.woff') format('woff'),
+		url('SegoePrint.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+main.user {
+    background: url('../image/blackboard.png') no-repeat;
+    background-size: 100% 100%;
+    width:90%;
+    margin: 0 auto;
+}
+
+main.user header img{
+    height: 70%;
+    padding: 2em;
+    width: auto;
+}
+main.user header {
+    margin: 0 1em;
+    height: 50%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+
+main.user header h1 {
+    font-size: 1.5em;
+}
+main.user header #information {
+    padding: 2em 1em
+}
+main.user ul#options{
+    font-family: 'Segoe Print';
+    font-size: 0.6em;
+    color:black;
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+main.user #options > li {
+    background: #FFC;
+    width: 25vh;
+    height: 25vh;
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, 7);
+    transition: 0.2s ease-in;
+}
+
+main.user #options > li:hover {
+     transform: scale(1.2);
+     box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+     z-index: 6;
+}
+
+li#groupsCase {
+    transform: rotate(3deg);
+    top: 1em;
+    position: relative;
+}
+
+#teachersCase {
+    transform: rotate(-1deg);
+}
+
+#timetableCase{
+    transform: rotate(-4deg);
+    top: 1em;
+    position: relative;
+}
+main.user #options > li > h1 {
+    text-decoration-line: underline;
+    padding-left:1em;
+}
+
+main.user #options > li p{
+    text-align: right;
+    padding-right: 1em;
+}

@@ -124,7 +124,7 @@
                 text-decoration: none;
                 color:inherit;
             }
-            main img {
+            main.mainIndex img {
                 position: absolute;
                 width: 100%;
                 display: block;

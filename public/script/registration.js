@@ -1,3 +1,6 @@
+import formSubmitPostJson  from "./formSubmitPostJson.js";
+import formValueJson  from "./formValueJson.js";
+
 const formTest = document.querySelector(`[name=${'registration'}]`),
     formElements = formTest.elements,
     valuesTest = {
@@ -79,7 +82,7 @@ registrationButton.addEventListener('click', () => {
         
         const valueForm = formValueJson('registration');
         
-        formSubmitPostJson('/',valueForm, responseModalWindow);
+        formSubmitPostJson('/registration',valueForm, responseModalWindow);
 
        
     } else {
@@ -100,45 +103,6 @@ function resultTest(index,testName,elemForErroText, value) {
     }
 };
 
-function formValueJson(formName) {
-    const formValid = document.querySelector(`[name=${formName}]`),
-        formElements = formValid.elements,
-        result = {};
-    let resultJson;
-    
-    formValid.addEventListener('submit', event => {
-        event.preventDefault();
-    });
-    
-    for (let i = 0; i < formElements.length ; i++) {
-    let input = formElements[i];
-
-        if ((input.type === 'radio' && !input.checked) || input.value === '') {
-            continue
-        }
-        const key = input.name,
-            value = input.value;
-        result[key] = value;
-    };
-
-    resultJson = JSON.stringify(result);
-
-    return  resultJson;
-};
-
-function formSubmitPostJson(url,data, callback){
-    let response;
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', url);
-    
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.send(data);
-    xhr.onload = function(){
-        response = this.responseText;
-        callback(response);
-    };
-};
 
 function responseModalWindow(response){
 
