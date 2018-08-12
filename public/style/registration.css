@@ -118,15 +118,14 @@ div.genderRadio label{
     flex-grow: 1;
 }
 
-input[type="submit"]{
+input[type="reset"]{
     position: relative;
     left: 55%;
     transition: 0.2s ease;
     cursor: pointer;
     transform: scale(1);
-    transition-property: transform;
 }
-input[type="reset"]:hover{
+input[type="reset"]:hover, input:focus{
     color:#bee426;
     transform: scale(1.2);
 }

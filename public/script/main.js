@@ -1,6 +1,7 @@
-import formValueJson from "./formValueJson.js";
 import formSubmitPostJson from "./formSubmitPostJson.js";
 import getCookieFromJSON from "./getCookieFromJSON.js";
+import FormSubmit  from "./formSubmit.js";
+import getElement  from "./getElement.js";
 
 class ModalWindow {
     constructor(nameSelector) {
@@ -31,11 +32,11 @@ modalWindowEnter.cancelButton.addEventListener('click', () => {
 });;
 
 
-
+const authorizationForm = new FormSubmit('authorization');
 const  buttonChekin = document.getElementById('checkin');
 
 buttonChekin.addEventListener('click', () => {
-    const data =  formValueJson('authorization');
+    const data =  authorizationForm.valueFormJson();
     console.log('data='+ data);
     formSubmitPostJson('/login',data, Hello);
 });
@@ -104,3 +105,28 @@ function Hello(response) {
     messegRespons.innerText = text;
 };
 
+
+class Header {
+    constructor(){
+
+    }
+    userYes(){
+
+    }
+    userNo() {
+        const elemUl = document.createElement('ul');
+        elemUl.id = 'userLogout';
+        getElement('header menu').appendChild(elemUl);
+
+        enter.id = 'enter';
+
+        const enter = document.createElement('li'),
+            registration = document.createElement('li');
+
+        registration.appendChild(document.createElement('a').
+                        getAttribute('href', './registration.html'))
+        elemUl.appendChild(enter);
+        elemUl.appendChild(registration);
+    }
+
+}
