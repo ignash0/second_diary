@@ -9,6 +9,8 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
 
 app.post('/login', function (req,res) {
   
@@ -97,6 +99,5 @@ app.post('/registration', function (req, res) {
 
 
 
-app.listen(8001, function () {
-  console.log('Exampl app listening on port 8001!');
-});;
+app.listen(port, ip);
+  console.log(port, ip);
