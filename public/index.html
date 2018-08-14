@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>student journal on-line</title>
+        <link rel="import" href="./customeEements/page-header/page-header.html">
         <link rel="stylesheet"  href="./style/base.css">
         
     </head>
@@ -26,24 +27,10 @@
                 </div>
             </div>
         </div>
-        <header>
-            <menu>
-                <ul id="userLogout">
-                    <li ><a href="./user.html" id="greeting"></a></li>
-                    <li id="logOut"><a href="">Выход</a></li>
-                </ul>
-                <ul id="enterRegistrationButton">
-                    <li id="enter">ВХОД</li>
-                    <li><a href="./registration.html">Регистрация</a></li>
-                </ul>
-            </menu>
-            <a href="./index.html">
-                <figure>
-                    <img src="./image/student.png" alt="student">
-                    <figcaption>On-line</figcaption>
-                </figure>
-            </a>
-        </header>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
         <main class="mainIndex">
             <div class="background">
                 <div class="sky">

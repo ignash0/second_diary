@@ -14,7 +14,7 @@
                 background-size:100% 100%;
                 color:rgb(249, 250, 243);
             }
-            body header {
+            /* body header {
                 position: relative;
                 height: 5%;
                 border: 0.4em solid transparent;
@@ -57,7 +57,7 @@
             body > header menu ul li {
                 padding: 0 1em;
                 font-size: 80%
-            }
+            } */
 
             h1, body, ul, blockquote, menu, figure{
                 margin: 0;

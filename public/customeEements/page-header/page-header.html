@@ -1,0 +1,84 @@
+<template id="page-header">
+    <style>
+            header {
+                position: relative;
+                height: 5%;
+                border: 0.4em solid transparent;
+                border-image-source: url(../image/border2.png);
+                border-image-repeat: repeat;
+                border-image-slice: 50 0;
+                border-image-width: 0 0 2;  
+            }
+            
+            a{
+                text-decoration: none;
+                color:inherit;
+            }
+            header > menu {
+                height: 100%;
+            }
+            header > a >  figure {
+                position: absolute;
+                height: 100%;
+                top: 0;
+                padding-bottom: 0.2em;
+            }
+            header figure img {
+                height: 100%;
+                width: auto;
+            }
+            header figure figcaption {
+                display: inline;
+                position: relative;
+                bottom: 0.4em;
+            }
+
+            header menu ul {
+                list-style-type: none;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                align-items: center;
+                width: 100%;
+                margin:0 6em 0 0;
+                padding: 0;
+                height: 100%;
+            }
+
+            header menu ul li {
+                cursor: pointer;
+                padding: 0 1em;
+                font-size: 100%;
+                transition: 0.1s ease-in;
+            }
+            header menu ul li:hover{
+                transform: scale(1.05);
+                color:#bee426;
+            }
+
+             ul, menu, figure{
+                margin: 0;
+            }
+    </style>
+    <header>
+        <menu>
+            <ul>
+                <li><slot name="first-li"></slot></li>
+                <li><slot name="last-li"></slot></li>
+            </ul>
+        </menu>
+        <a href="./index.html">
+            <figure>
+                <img src="./image/student.png" alt="student">
+                <figcaption>On-line</figcaption>
+            </figure>
+        </a>
+    </header>
+</template>
+
+<page-header>
+    <li slot="first-li"></li>
+    <li slot="last-li"></li>
+</page-header>
+
+<script src="./page-header.js"></script>

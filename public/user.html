@@ -3,24 +3,15 @@
     <head>
         <meta charset="utf-8">
         <title>student journal on-line</title>
+        <link rel="import" href="./customeEements/page-header/page-header.html">
         <link rel="stylesheet"  href="./style/base.css">
         <link rel="stylesheet"  href="./style/user.css">
     </head>
     <body>
-        <header>
-            <menu>
-                <ul id="userLogout">
-                    <li ><a href="./user.html" id="user"></a></li>
-                    <li id="logOut"><a href="./index.html">Выход</a></li>
-                </ul>
-            </menu>
-            <a href="./index.html">
-                <figure>
-                    <img src="./image/student.png" alt="student">
-                    <figcaption>On-line</figcaption>
-                </figure>
-            </a>
-        </header>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
         <main class="user">
             <header>
                 <div id="information">
@@ -32,7 +23,7 @@
                 <li id="groupsCase">
                     <h1>Группы:</h1>
                     <ul id="groups"></ul>
-                    <a href="" id="newGroup">
+                    <a href="./add-groupe.html" id="newGroup">
                         <p>Добавить группу</p>
                     </a>
                 </li>

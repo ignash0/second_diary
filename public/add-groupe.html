@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+        <link rel="import" href="./customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="./style/addGroup.css">
+        <link rel="stylesheet"  href="./style/base.css">
+        <link rel="stylesheet"  href="./style/user.css">
+    </head>
+    <body>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
+        <main id="addGroup">
+            <section id="createStudent">
+                <header>
+                    <label for="nameGroup">
+                        <span>Название новой группы  №</span>
+                        <input type="text" id="nameGroup" name="nameGroup">
+                    </label>
+                    <button>Создать новую группу</button>
+                </header>
+                <form name="student">
+                    <fieldset id="fullName">
+                        <input type="text" name="userSurname" placeholder="Фамилия">
+                        <input type="text" name="userName" placeholder="Имя">
+                        <input type="text" name="userFatherName" placeholder="Отчество">
+                    </fieldset>
+                    <label for="userDateBirth"> 
+                        <span>Дата рождения:</span>
+                        <input type="text" id="userDateBirth" name="userDateBirth" placeholder="дд.мм.ггг"> 
+                    </label> 
+                    <input type="text" name="userEmail" placeholder="E-mail">
+                </form>
+                <button>Добавить ученика.</button>
+            </section>
+            <section id="createGroupe">
+                <ul></ul>
+                <button>
+                    Добавить группу
+                </button>
+            </section>
+        </main>
+    </body>
+    <footer></footer>
+</html>

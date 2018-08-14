@@ -1,5 +1,4 @@
 import formSubmitPostJson from "./formSubmitPostJson.js";
-import getCookieFromJSON from "./getCookieFromJSON.js";
 import FormSubmit  from "./formSubmit.js";
 import getElement  from "./getElement.js";
 
@@ -23,9 +22,12 @@ class ModalWindow {
 
 const modalWindowEnter = new ModalWindow('.modalWindowEnter');
 
-modalWindowEnter.buttonEnter.addEventListener('click', () => {
-    modalWindowEnter.openWindow();
-});
+if (modalWindowEnter.buttonEnter) {
+
+    modalWindowEnter.buttonEnter.addEventListener('click', () => {
+        modalWindowEnter.openWindow();
+    });
+}
 
 modalWindowEnter.cancelButton.addEventListener('click', () => {
     modalWindowEnter.closeWindow();
@@ -39,40 +41,6 @@ buttonChekin.addEventListener('click', () => {
     const data =  authorizationForm.valueFormJson();
     console.log('data='+ data);
     formSubmitPostJson('/login',data, Hello);
-});
-
-const   enterRegistration = document.getElementById('enterRegistrationButton'),
-    userLogout = document.getElementById('userLogout'),
-    greeting = document.getElementById('greeting');
-
-if (getCookieFromJSON('email')) {
-    const userName = getCookieFromJSON('name'),
-    userSurname = getCookieFromJSON('surname');
-    
-
-    enterRegistration.style.display = 'none';
-    userLogout.style.display = 'flex';
-    greeting.innerText = `${userName} ${userSurname}`;
-
-} else {
-
-    enterRegistration.style.display = 'flex';
-    userLogout.style.display = 'none';
-
-}
-
-const logOut = document.getElementById('logOut');
-
-logOut.addEventListener('click', () => {
-    var xhr = new XMLHttpRequest();
-
-    xhr.open('GET', '/logout');
-
-    xhr.send();
-    xhr.onload = function () {
-        alert(this.responseText)
-    }
-   
 });
 
 
@@ -104,29 +72,3 @@ function Hello(response) {
     }
     messegRespons.innerText = text;
 };
-
-
-class Header {
-    constructor(){
-
-    }
-    userYes(){
-
-    }
-    userNo() {
-        const elemUl = document.createElement('ul');
-        elemUl.id = 'userLogout';
-        getElement('header menu').appendChild(elemUl);
-
-        enter.id = 'enter';
-
-        const enter = document.createElement('li'),
-            registration = document.createElement('li');
-
-        registration.appendChild(document.createElement('a').
-                        getAttribute('href', './registration.html'))
-        elemUl.appendChild(enter);
-        elemUl.appendChild(registration);
-    }
-
-}

@@ -2,7 +2,7 @@
   "name": "application",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.3",
     "browser-sync": "^2.24.6",
@@ -14,8 +14,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "browser-sync -s -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "author": "Maksim Ihnashevich",
   "license": "ISC"

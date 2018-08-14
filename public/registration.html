@@ -3,6 +3,7 @@
     <head>
         <title>student journal on-line</title>
         <meta charset="utf-8">
+        <link rel="import" href="./customeEements/page-header/page-header.html">
         <link rel="stylesheet"  href="./style/base.css">
         <link rel="stylesheet"  href="./style/registration.css">
     </head>
@@ -18,21 +19,10 @@
             </div>
         </div>
          
-        <header>
-            <menu>
-                <ul>
-                    <li><a href="">ВХОД</a></li>
-                        <li><a href="./registration
-                            .html">Регистрация</a></li>
-                    </ul>
-            </menu>
-            <a href="./index.html">
-                <figure>
-                    <img src="./image/student.png" alt="student">
-                        <figcaption>On-line</figcaption>
-                </figure>
-            </a>
-        </header>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
         <main class="mainRegistration
         ">
             <h1>Регистрация необходима для новых кураторов учебной группы</h1>
