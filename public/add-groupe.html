@@ -5,10 +5,13 @@
         <title>student journal on-line</title>
         <link rel="import" href="./customeEements/page-header/page-header.html">
         <link rel="stylesheet"  href="./style/addGroup.css">
+        <link rel="import" href="./customeEements/modalWindow/modal-window.html">
+
         <link rel="stylesheet"  href="./style/base.css">
         <link rel="stylesheet"  href="./style/user.css">
     </head>
     <body>
+        <modal-window text = 'Hello'></modal-window>
         <page-header>
                 <span slot="first-li"></span> 
                 <span slot="last-li"></span>
@@ -18,31 +21,47 @@
                 <header>
                     <label for="nameGroup">
                         <span>Название новой группы  №</span>
-                        <input type="text" id="nameGroup" name="nameGroup">
+                        <input form="student" type="text" id="nameGroup" name="nameGroup">
                     </label>
-                    <button>Создать новую группу</button>
+                    <button id="addNewGroup">Создать новую группу</button>
                 </header>
-                <form name="student">
-                    <fieldset id="fullName">
+                <form name="student" id="student">
+                    <div id="fullName">
                         <input type="text" name="userSurname" placeholder="Фамилия">
                         <input type="text" name="userName" placeholder="Имя">
                         <input type="text" name="userFatherName" placeholder="Отчество">
-                    </fieldset>
+                    </div>
                     <label for="userDateBirth"> 
                         <span>Дата рождения:</span>
                         <input type="text" id="userDateBirth" name="userDateBirth" placeholder="дд.мм.ггг"> 
+                    </label>
+                    <label for="userEmail">
+                        <span>E-mail:</span>
+                        <input type="text" name="userEmail" id="userEmail" placeholder="makasim@gmail.com">
                     </label> 
-                    <input type="text" name="userEmail" placeholder="E-mail">
                 </form>
-                <button>Добавить ученика.</button>
+                <button id="addStudent" type="button" form="student">Добавить ученика.</button>
             </section>
-            <section id="createGroupe">
-                <ul></ul>
-                <button>
+            <section >
+                    <table>
+                        <caption>№группы</caption>
+                        <thead>
+                            <tr>
+                              <th>№</th>
+                              <th>Фамилия</th>
+                              <th>Имя</th>
+                              <th>Отчество</th>
+                              <th>Дата рождения</th>
+                              <th>E-mail</th>
+                            </tr>
+                        </thead>
+                    </table>
+                <button id="createGroupe">
                     Добавить группу
                 </button>
             </section>
         </main>
+        <script type="module" src="./script/addGroup.js"></script>
     </body>
     <footer></footer>
 </html>

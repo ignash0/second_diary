@@ -118,7 +118,7 @@ div.genderRadio label{
     flex-grow: 1;
 }
 
-input[type="reset"]{
+input#registrationButton{
     position: relative;
     left: 55%;
     transition: 0.2s ease;

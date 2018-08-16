@@ -13,24 +13,27 @@ export default class FormSubmit {
         };
         this.resultsTests = {};
     }
+    get arrayInput() {
+        return Array.from(this.formElements).filter(elem => (elem.tagName !== 'BUTTON' && elem.id !== 'registrationButton'));
+    }
 
-    test() {
+    testInput() {
         this.form.addEventListener('submit', event => {
             event.preventDefault();
         });
         this.form.addEventListener('keydown', event => {
             let index;
             if (event.keyCode === 13) {
-                for (let i = 0; i < this.formElements.length; i++) {
-                    if (event.target === this.formElements[i]) {
+                for (let i = 0; i < this.arrayInput.length; i++) {
+                    if (event.target === this.arrayInput[i]) {
                         index = i;
                         break;
                     }
                 };
-                if (index === this.formElements.length-1) {
+                if (index === this.arrayInput.length-1) {
                     index = 0;
                 };
-                this.formElements[index+1].focus();
+                this.arrayInput[index+1].focus();
             }
         });
         
@@ -74,6 +77,26 @@ export default class FormSubmit {
             }
         })
     }
+    get testForm() {
+        const valuesElementsForm = [],
+            valueResultsTests = [];
+        let allInputFilled,
+            allValueResultTrue;
+         
+        for (let i = 0; i < this.arrayInput.length; i++) {
+            const value = this.arrayInput[i].value;
+            valuesElementsForm.push(value);
+        };
+
+        for (let key in  this.resultsTests) {
+            valueResultsTests.push(this.resultsTests[key])
+        };
+        
+        allInputFilled = valuesElementsForm.every(item => item !== '');
+        allValueResultTrue = valueResultsTests.every(item => item === true);
+
+        return allInputFilled && allValueResultTrue ? true : false
+    }
 
     createErrorElemment(elemEvent) {
         const errorTextConteiner = document.createElement('span');
@@ -104,8 +127,8 @@ export default class FormSubmit {
         const result = {};
         let resultJson;
 
-        for (let i = 0; i < this.formElements.length ; i++) {
-            let input = this.formElements[i];
+        for (let i = 0; i < this.arrayInput.length ; i++) {
+            let input = this.arrayInput[i];
         
                 if ((input.type === 'radio' && !input.checked) || input.value ==='') {
                     continue
@@ -118,31 +141,13 @@ export default class FormSubmit {
             resultJson = JSON.stringify(result);
         
             return  resultJson;
-        
-
     }
 
-    submitJson(responsCallback) {
-        const valuesElementsForm = [],
-            valueResultsTests = [];
-        let allInputFilled,
-            allValueResultTrue;
-         
-        for (let i = 0; i < this.formElements.length; i++) {
-            const value = this.formElements[i].value;
-            valuesElementsForm.push(value);
-        };
-
-        for (let key in  this.resultsTests) {
-            valueResultsTests.push(this.resultsTests[key])
-        };
-        
-        allInputFilled = valuesElementsForm.every(item => item !== '');
-        allValueResultTrue = valueResultsTests.every(item => item === true);
-        if (allInputFilled && allValueResultTrue) {
+    submitJson(url, responsCallback) {
+        if (this.testForm) {
             const valueForm = this.valueFormJson();
-            formSubmitPostJson('/registration',valueForm, responsCallback);
-    
+            formSubmitPostJson(url,valueForm, responsCallback);
+            
         } else {
                 alert('Не все поля заполнены')
         }

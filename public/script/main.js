@@ -9,21 +9,16 @@ class ModalWindow {
         this.buttonEnter = document.getElementById('enter');
         this. cancelButton = document.getElementById('cancel');
     }
-
     openWindow() {
         this.modalWindow.classList.add('openModalWindow');
     }
-
     closeWindow() {
         this.modalWindow.classList.remove('openModalWindow');
     }
-
 };
 
 const modalWindowEnter = new ModalWindow('.modalWindowEnter');
-
 if (modalWindowEnter.buttonEnter) {
-
     modalWindowEnter.buttonEnter.addEventListener('click', () => {
         modalWindowEnter.openWindow();
     });
@@ -31,18 +26,15 @@ if (modalWindowEnter.buttonEnter) {
 
 modalWindowEnter.cancelButton.addEventListener('click', () => {
     modalWindowEnter.closeWindow();
-});;
+});
 
-
-const authorizationForm = new FormSubmit('authorization');
-const  buttonChekin = document.getElementById('checkin');
-
+const authorizationForm = new FormSubmit('authorization'),
+    buttonChekin = document.getElementById('checkin');
 buttonChekin.addEventListener('click', () => {
     const data =  authorizationForm.valueFormJson();
     console.log('data='+ data);
     formSubmitPostJson('/login',data, Hello);
 });
-
 
 function Hello(response) {
     const buttonCancel = document.getElementById('cancel'),

@@ -3,11 +3,11 @@ import getElement  from "./getElement.js";
 
 const formRegistration = new FormSubmit('registration');
 
-formRegistration.test();
+formRegistration.testInput();
 
 const registrationButton = getElement('#registrationButton');
 registrationButton.addEventListener('click', () => {
-    formRegistration.submitJson(responseModalWindow)
+    formRegistration.submitJson('/registration', responseModalWindow)
 });
 
 function responseModalWindow(response){

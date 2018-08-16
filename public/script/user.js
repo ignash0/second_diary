@@ -17,7 +17,12 @@ window.addEventListener('load', () => {
 class User {
     constructor() {
     }
+    
     get userData() {
+        this.requestServer()
+    }
+
+    requestServer() {
         const id = {};
         id['id'] = getCookieFromJSON('id');
         let response;
@@ -29,42 +34,45 @@ class User {
         xhr.send(JSON.stringify(id));
         xhr.addEventListener('load', () => {
             response = xhr.responseText;
+            this.userInformation(response)
             
-            const data = JSON.parse(response);
-            
-            const information = getElement('#information').appendChild(document.createElement('ul'));
-
-            for (let key in data) {
-                const list = document.createElement('li');
-                switch (key) {
-                    case 'userDateBirth':
-                        list.innerText = `Дата рождениея: ${data[key]}`;
-                        information.appendChild(list);     
-                        break;
-
-                    case 'userEmail':
-                        list.innerText = `E-mail: ${data[key]}`;
-                        information.appendChild(list);     
-                        break;
-
-                    case 'userPlaceWork':
-                        list.innerText = `Место работы: ${data[key]}`;
-                        information.appendChild(list);     
-                        break;
-                    
-                    case 'userPosition':
-                        list.innerText = `Должность: ${data[key]}`;
-                        information.appendChild(list);     
-                        break;
-
-                    case 'statue':
-                        list.innerText = `Статус: ${data[key]}`;
-                        information.appendChild(list);     
-                        break;
-                }
-            }
         })
-        console.log(response);
+    }
+
+    userInformation(response){
+        const data = JSON.parse(response);
+            
+        const information = getElement('#information').appendChild(document.createElement('ul'));
+
+        for (let key in data) {
+            const list = document.createElement('li');
+            switch (key) {
+                case 'userDateBirth':
+                    list.innerText = `Дата рождениея: ${data[key]}`;
+                    information.appendChild(list);     
+                    break;
+
+                case 'userEmail':
+                    list.innerText = `E-mail: ${data[key]}`;
+                    information.appendChild(list);     
+                    break;
+
+                case 'userPlaceWork':
+                    list.innerText = `Место работы: ${data[key]}`;
+                    information.appendChild(list);     
+                    break;
+                
+                case 'userPosition':
+                    list.innerText = `Должность: ${data[key]}`;
+                    information.appendChild(list);     
+                    break;
+
+                case 'statue':
+                    list.innerText = `Статус: ${data[key]}`;
+                    information.appendChild(list);     
+                    break;
+            }
+        }
     }
 };
 

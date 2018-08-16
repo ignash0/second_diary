@@ -55,11 +55,26 @@ section header{
     padding: 0 0 1em 0;
 }
 
-
 section header, section#createStudent{
     border: 0.4em solid transparent;
     border-image-source: url(../image/border2.png);
     border-image-repeat: repeat;
     border-image-slice: 50 0;
     border-image-width: 0 0 2; 
+}
+th, td{
+    width: 10em;
+}
+table button{
+    width: 7em;
+    font-size: 0.7em;
+}
+.   {
+    background-color: rgba(255,255,255,0.4);
+}
+
+
+
+
+
 }

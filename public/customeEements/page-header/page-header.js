@@ -24,65 +24,60 @@ function getCookieFromJSON(nameCookie){
         }
     return result
     
-    };
+};
     
-    let template = document.currentScript.ownerDocument.querySelector('#page-header');
-    
-        const firstLi =document.querySelector("[slot='first-li']"),
-            lastLi = document.querySelector("[slot='last-li']"),
-            aInLi = document.createElement('a');
-        
-        if (getCookieFromJSON('id')) {
-            const userName = getCookieFromJSON('name'),
-                userSurname = getCookieFromJSON('surname');
-    
-            aInLi.setAttribute('href','./user.html');
-            aInLi.innerText = `${userName} ${userSurname}`;
-            firstLi.appendChild(aInLi);
-            lastLi.id = 'logOut';
-            lastLi.innerText = 'Выход';
-    
-        } else {
-            firstLi.id = 'enter';
-            firstLi.innerText = 'ВХОД';
-            aInLi.setAttribute('href','./registration.html');
-            aInLi.innerText = 'Регистрация';
-            lastLi.appendChild(aInLi);
-    
-        };
-    
-        const logOut = document.getElementById('logOut');
+let template = document.currentScript.ownerDocument.querySelector('#page-header');
 
-        if (logOut) {
-        
-            logOut.addEventListener('click', () => {
-                var xhr = new XMLHttpRequest();
-            
-                xhr.open('GET', '/logout');
-            
-                xhr.send();
-                xhr.onload = function () {
-                    document.location.href = '/index.html';
-                }
-            
-               
-            });
-        };
+const firstLi =document.querySelector("[slot='first-li']"),
+    lastLi = document.querySelector("[slot='last-li']"),
+    aInLi = document.createElement('a');
 
-        if (document.location.pathname === "/registration.html") {
-            document.getElementById('enter').addEventListener('click', () => {
-                document.location.href = '/index.html';
-            })
+if (getCookieFromJSON('id')) {
+    const userName = getCookieFromJSON('name'),
+        userSurname = getCookieFromJSON('surname');
+    aInLi.setAttribute('href','./user.html');
+    aInLi.innerText = `${userName} ${userSurname}`;
+    firstLi.appendChild(aInLi);
+    lastLi.id = 'logOut';
+    lastLi.innerText = 'Выход';
+} else {
+    firstLi.id = 'enter';
+    firstLi.innerText = 'ВХОД';
+    aInLi.setAttribute('href','./registration.html');
+    aInLi.innerText = 'Регистрация';
+    lastLi.appendChild(aInLi);
+};
+
+const logOut = document.getElementById('logOut');
+if (logOut) {
+
+    logOut.addEventListener('click', () => {
+        var xhr = new XMLHttpRequest();
+    
+        xhr.open('GET', '/logout');
+    
+        xhr.send();
+        xhr.onload = function () {
+            document.location.href = '/index.html';
         }
     
-    
-    class PageHeader extends HTMLElement {
        
-        constructor() {
-          super();
-          let shadow = this.attachShadow({mode: 'open'});
-          shadow.appendChild(template.content.cloneNode(true));
-        }
-    };
-    
-    customElements.define('page-header', PageHeader);
+    });
+};
+
+if (document.location.pathname === "/registration.html") {
+    document.getElementById('enter').addEventListener('click', () => {
+        document.location.href = '/index.html';
+    })
+};
+
+class PageHeader extends HTMLElement {
+   
+    constructor() {
+      super();
+      let shadow = this.attachShadow({mode: 'open'});
+      shadow.appendChild(template.content.cloneNode(true));
+    }
+};
+
+customElements.define('page-header', PageHeader);

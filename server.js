@@ -50,7 +50,6 @@ app.post('/registration', function (req, res) {
   });
 });
 
-
 app.post('/login', function (req,res) {
   
   fs.readFile(__dirname + '/bd/user.json', function (err, date) {
@@ -115,7 +114,68 @@ app.post('/user', (req, res) => {
       }
     }
   });
+});
+
+app.post('/group', (req, res) => {
+  console.log(req.body);
+  console.log(req.cookies);
+  
+  const students = req.body,
+    nameNewGroup = students[0]['nameGroup'],
+    curator = req.cookies.dataUser.id;
+
+    fs.readFile(__dirname + '/bd/group.json', (err, data) => {
+      if (err) {
+        return console.log(err)
+      } else {
+        const groups = JSON.parse(data);
+        let equal = true;
+
+        groups.forEach( elem => {
+          if (elem.nameGroup === nameNewGroup) {
+            equal = false
+          }
+        });
+
+        if (!equal) {
+          res.send('Такая группа уже зарегистрированна.')
+        } else {
+            const newGroup = {};
+            newGroup.nameGroup = nameNewGroup;
+            newGroup.students = [];
+
+            students.forEach(item => {
+              const idUser = Math.random().toString(36).substr(2, 9),
+                password = Math.random().toString(36).substr(2, 6);
+              item['curator'] = curator;
+              item.status = 'student';
+              item.id = idUser;
+              item.userPassword = password;
+              newGroup.students.push(idUser);
+
+              fs.readFile(__dirname + '/bd/user.json', (err,data) => {
+                const usersData = JSON.parse(data);
+                usersData.push(item)
+                const newUser = JSON.stringify(usersData);
+                fs.writeFile(__dirname + '/bd/user.json', newUser, 'utf8', (err) => {
+                  if (err) throw err;
+                  console.log('The file has been saved!');
+                });
+
+              })
+            });
+            
+            groups.push(newGroup);
+            fs.writeFile(__dirname + '/bd/group.json',JSON.stringify(groups), 'utf8', (err) => {
+              if (err) throw err;
+              console.log('The file has been saved!');
+          })
+          res.send(`Группа ${nameNewGroup} добавлена.`)         
+        }
+      }
+  });
 })
+
 
 
 app.get('/logout', function(req, res){
@@ -126,12 +186,5 @@ app.get('/logout', function(req, res){
 // app.get('/logout', function(req, res){
 //   res.cookie(dataUser, "", { expires: new Date(0), path: '/' });
 // });
-
-
-
-
-
-
-
 app.listen(port);
 console.log('Server running on ', ip, port);
