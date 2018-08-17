@@ -1,5 +1,5 @@
 import formSubmitPostJson from "./formSubmitPostJson.js";
-import FormSubmit  from "./formSubmit.js";
+import FormSubmit  from "./class/FormSubmit.js";
 import getElement  from "./getElement.js";
 
 class ModalWindow {
@@ -29,7 +29,7 @@ modalWindowEnter.cancelButton.addEventListener('click', () => {
 });
 
 const authorizationForm = new FormSubmit('authorization'),
-    buttonChekin = document.getElementById('checkin');
+    buttonChekin = getElement('#checkin');
 buttonChekin.addEventListener('click', () => {
     const data =  authorizationForm.valueFormJson();
     console.log('data='+ data);
@@ -37,10 +37,10 @@ buttonChekin.addEventListener('click', () => {
 });
 
 function Hello(response) {
-    const buttonCancel = document.getElementById('cancel'),
-        messegButtons = document.querySelector('.modalWindowMessige .button'),
-        formCheckin = document.getElementById('formCheckin'),
-        modalWindowMessige =document.querySelector('.modalWindowMessige'),
+    const buttonCancel = getElement('#cancel'),
+        messegButtons = getElement('.modalWindowMessige .button'),
+        formCheckin = getElement('#formCheckin'),
+        modalWindowMessige =getElement('.modalWindowMessige'),
         messegRespons = document.createElement('h1');
     let text;
 

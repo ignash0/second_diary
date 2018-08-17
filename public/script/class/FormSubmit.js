@@ -1,5 +1,5 @@
-import formSubmitPostJson  from "./formSubmitPostJson.js";
-import getElement  from "./getElement.js";
+import formSubmitPostJson  from "../formSubmitPostJson.js";
+import getElement  from "../getElement.js";
 
 export default class FormSubmit {
     constructor (name) {

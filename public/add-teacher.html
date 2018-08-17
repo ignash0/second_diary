@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+        <link rel="import" href="./customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="./style/addGroup.css">
+        <link rel="import" href="./customeEements/modalWindow/modal-window.html">
+
+        <link rel="stylesheet"  href="./style/base.css">
+        <link rel="stylesheet"  href="./style/user.css">
+    </head>
+    <body>
+        <modal-window></modal-window>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
+        <main id="teacher">
+                <header><h1>Новый преподаватель</h1></header>
+                <section id="newTeacher">
+                    <form name="teacher" id="teacher">
+                        <label for="subject">
+                            <span>Преподаваемый пердмет:</span>
+                            <input type="text" name="subject" id="subject">
+                        </label>           
+                        <div id="fullName">
+                            <input type="text" name="userSurname" placeholder="Фамилия">
+                            <input type="text" name="userName" placeholder="Имя">
+                            <input type="text" name="userFatherName" placeholder="Отчество">
+                        </div>
+                        <label for="userDateBirth"> 
+                            <span>Дата рождения:</span>
+                            <input type="text" id="userDateBirth" name="userDateBirth" placeholder="дд.мм.ггг"> 
+                        </label>
+                        <label for="userEmail">
+                            <span>E-mail:</span>
+                            <input type="text" name="userEmail" id="userEmail" placeholder="makasim@gmail.com">
+                        </label> 
+                    </form>
+                    <button id="addTeacher" type="button" form="teacher">Добавить преподавателя</button>
+                </section>
+                <section id="result">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Предмет</th>
+                                <th>Фамилия</th>
+                                <th>Имя</th>
+                                <th>Отчество</th>
+                                <th>Дата рождения</th>
+                                <th>E-mail</th>
+                            </tr>
+                        </thead>
+                    </table>
+                <button id="createTeacher">Добавить преподаввтелей</button>
+                </section>
+        </main>
+        <script type="module" src="./script/addTeacher.js"></script>
+    </body>
+</html>

@@ -1,8 +1,11 @@
 section {
-    height: 50%;
-    padding: 1em 2em 0 2em
+    padding: 0 2em 1em 2em;
 }
-#createStudent input{
+main>header>h1 {
+    text-align: center;
+    padding-top: 1em;
+}
+input{
     width: 10em;
     margin: 0 1em;
     font-family: "OpenSansRegular";
@@ -18,10 +21,10 @@ section {
     outline: none;
     font-size: 1em;
 }
-#createStudent input[name="userEmail"]{
+input[name="userEmail"]{
     width: 15em;
 }
-#createStudent input::placeholder{
+input::placeholder{
     text-indent: 1em;
     letter-spacing: 0.5em;
 }
@@ -55,7 +58,7 @@ section header{
     padding: 0 0 1em 0;
 }
 
-section header, section#createStudent{
+section header, section#createStudent, section#createTeacher{
     border: 0.4em solid transparent;
     border-image-source: url(../image/border2.png);
     border-image-repeat: repeat;
@@ -69,12 +72,10 @@ table button{
     width: 7em;
     font-size: 0.7em;
 }
-.   {
+.change{
     background-color: rgba(255,255,255,0.4);
 }
-
-
-
-
-
+caption {
+    font-size: 2em;
+    color: #bee426;
 }

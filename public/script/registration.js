@@ -1,4 +1,4 @@
-import FormSubmit  from "./formSubmit.js";
+import FormSubmit  from "./class/FormSubmit.js";
 import getElement  from "./getElement.js";
 
 const formRegistration = new FormSubmit('registration');

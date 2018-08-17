@@ -8,20 +8,20 @@ export default function getCookieFromJSON(nameCookie){
         resultJson,
         dataCookie;
     
-        for (var i= 0; i< decodedCookie.length;i++) {
-            
-            if (decodedCookie.charAt(i) === '{') {
-                first = i
-            };
-            if (decodedCookie.charAt(i) === '}'){
-                last = i
+    for (var i= 0; i< decodedCookie.length;i++) {
+        
+        if (decodedCookie.charAt(i) === '{') {
+            first = i
         };
-        };
-        if (first &&  last) {
-            resultJson = decodedCookie.substring(first, last + 1);
-            dataCookie = JSON.parse(resultJson);
-            result = dataCookie[nameCookie];
-        }
+        if (decodedCookie.charAt(i) === '}'){
+            last = i
+    };
+    };
+    if (first &&  last) {
+        resultJson = decodedCookie.substring(first, last + 1);
+        dataCookie = JSON.parse(resultJson);
+        result = dataCookie[nameCookie];
+    }
     return result
     
 };
