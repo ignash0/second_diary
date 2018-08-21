@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+        <link rel="import" href="/public/customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="/public/style/addGroup.css">
+        <link rel="import" href="/public/customeEements/modalWindow/modal-window.html">
+
+        <link rel="stylesheet"  href="/public/style/base.css">
+        <link rel="stylesheet"  href="/public/style/user.css">
+    </head>
+    <body>
+        <modal-window></modal-window>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
+        <main id="journal">
+            <header>
+                <h1>Группа:</h1>
+                <p></p>
+            </header>
+            <section>
+                <ul id="students">
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ul>
+                <canvas height="400" width="800"></canvas>
+            </section>
+            <table>
+                <thead>
+                    <td>
+                        <th>№</th>
+                        <th>Предмет</th>
+                        <th>Фамилия</th>
+                        <th>Имя</th>
+                        <th>Отчество</th>
+                        <th>Дата рождения</th>
+                        <th>E-mail</th>
+                    </td>
+                </thead>
+            </table>
+        </main>
+        <script src="/public/script/journal.js"></script>
+    </body>
+    <footer>
+
+    </footer>
+</html>

@@ -42,6 +42,20 @@ export default class GroupTeacher extends FormSubmit{
             })
         }
     }
+    addSubject() {
+        let response;
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', '/subject');
+        
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send();
+        xhr.addEventListener('load', () => {
+            response = xhr.responseText;
+            callback(response);
+        })
+    
+    }
 
     createTableRow() {
         this.students.forEach(item => {

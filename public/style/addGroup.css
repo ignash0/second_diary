@@ -58,7 +58,7 @@ section header{
     padding: 0 0 1em 0;
 }
 
-section header, section#createStudent, section#createTeacher{
+section header, section:not(:last-child), section#newTeacher{
     border: 0.4em solid transparent;
     border-image-source: url(../image/border2.png);
     border-image-repeat: repeat;

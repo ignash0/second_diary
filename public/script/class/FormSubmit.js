@@ -6,7 +6,7 @@ export default class FormSubmit {
         this.form = getElement(`[name=${name}]`);
         this.formElements = this.form.elements;
         this.valueTest = {
-            testValueName: /[a-zA-Z0-9А-Яа-я-]+/,
+            testValueName: /^[а-яА-ЯёЁa-zA-Z0-9]+$/,
             testValueDateBirth: /\d{1,2}.\d{1,2}.\d{4}/,
             testValueEmail: /\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6}/,
             testValuePassword: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,12}/,
@@ -41,23 +41,26 @@ export default class FormSubmit {
             this.removeErrorElemment(event.target.name);       
         }, true);
         this.form.addEventListener('change', (event) => {
-            const   input = event.target,
-                value = event.target.value;
-            let testName;
+            const   input = event.target;
+            let value = event.target.value,
+                testName;
             switch (input.name) {
                 case 'userSurname':
+                    event.target.value = this.upperCase(value);  
                     testName = this.valueTest.testValueName;
-                    this.resultTest(input, testName, value);   
+                    this.resultTest(input, testName, value);
                     break;
 
                 case 'userName':
+                    event.target.value = this.upperCase(value);
                     testName = this.valueTest.testValueName;
                     this.resultTest(input, testName, value);   
                     break;
 
                 case 'userFatherName':
+                    event.target.value = this.upperCase(value);
                     testName = this.valueTest.testValueName;
-                    this.resultTest(input, testName, value);   
+                    this.resultTest(input, testName, value);
                     break;
 
                 case 'userDateBirth':
@@ -77,6 +80,9 @@ export default class FormSubmit {
             }
         })
     }
+    upperCase(value) {
+        return value.replace(value[0], value[0].toUpperCase())
+    }
     get testForm() {
         const valuesElementsForm = [],
             valueResultsTests = [];
@@ -84,7 +90,7 @@ export default class FormSubmit {
             allValueResultTrue;
          
         for (let i = 0; i < this.arrayInput.length; i++) {
-            const value = this.arrayInput[i].value;
+            let value = this.arrayInput[i].value;
             valuesElementsForm.push(value);
         };
 
@@ -102,7 +108,6 @@ export default class FormSubmit {
         const errorTextConteiner = document.createElement('span');
 
         errorTextConteiner.innerText = 'Введенные данные не соответствуют условию';
-        errorTextConteiner.style.color = 'red';
         errorTextConteiner.id = `error${elemEvent.name}`;
         this.form.insertBefore(errorTextConteiner, elemEvent.parentNode.nextElementSibling)
     }

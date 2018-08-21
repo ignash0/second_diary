@@ -1,6 +1,7 @@
 import formSubmitPostJson from "./formSubmitPostJson.js";
 import FormSubmit  from "./class/FormSubmit.js";
 import getElement  from "./getElement.js";
+import getCookieFromJSON from "./getCookieFromJSON.js";
 
 class ModalWindow {
     constructor(nameSelector) {
@@ -49,16 +50,17 @@ function Hello(response) {
     console.log('resp='+response);
     
     if (response === 'yes') {
+        const id = getCookieFromJSON('id');
         text = 'Вы успешно вошли в систему!';
         buttonCancel.setAttribute('hidden', 'false');
         buttonChekin.addEventListener('click', () => {
-            document.location.href = '/user.html';
+            document.location.href = `/user/${id}`;
         })
     } else {
         text = 'Вы ввели не верные данные!';
         buttonChekin.setAttribute('hidden', 'false');
         buttonCancel.addEventListener('click', () => {
-            document.location.href = '/index.html';
+            document.location.href = '/';
             
         })
     }

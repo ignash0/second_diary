@@ -4,13 +4,96 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   cookieParser = require('cookie-parser');
 
-
-app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.use('/public', express.static('public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html')
+});
+
+app.get('/registration', (req, res) => {
+  res.sendFile(__dirname + '/public/registration.html')
+});
+
+app.get('/user/:id', (req, res) => {
+  fs.readFile(__dirname + '/bd/user.json', (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
+      let foundUser,
+        users;
+  
+      users = JSON.parse(data);
+      for (let i =0; i < users.length; i++){
+        const user = users[i];
+        console.log(req.params);
+        if (user.id === req.params.id ) {
+          foundUser = user;
+          break
+        }
+      }
+
+      const info =[];
+      for (let key in foundUser) {
+          switch (key) {
+              case 'userDateBirth':
+                  info.push(`Дата рождениея: ${foundUser[key]}`);
+                  break;
+
+              case 'userEmail':
+                  info.push(`E-mail: ${foundUser[key]}`);
+                  break;
+
+              case 'userPlaceWork':
+                  info.push(`Место работы: ${foundUser[key]}`);
+                  break;
+              
+              case 'userPosition':
+                  info.push(`Должность: ${foundUser[key]})`);
+                  break;
+
+              case 'statue':
+                  info.push(`Статус: ${foundUser[key]}`);
+                  break;
+
+              case 'subject':
+                  info.push(`Преподаваемый предмет: ${foundUser[key]}`);
+                  break;
+
+              case 'nameGroup':
+                  info.push(`Группа: ${foundUser[key]}`);
+                  break;
+
+          }
+      }
+      res.render('user', {name:`${foundUser.userSurname} ${foundUser.userName} ${foundUser.userFatherName}`, info: info})
+    }
+  })
+})
+ app.get('/add-group', (req, res) => {
+  res.sendFile(__dirname + '/public/add-groupe.html')
+ })
+
+ app.get('/add-teacher', (req, res) => {
+  res.sendFile(__dirname + '/public/add-teacher.html')
+ })
+
+ app.get('/subject', (req, res) => {
+   fs.readFile(__dirname + '/bd/subject.json', (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
+      const usersData = JSON.parse(data);
+      
+    }
+   })
+ })
+
 
 app.post('/registration', function (req, res) {
   console.log('body:', req.body);
@@ -62,7 +145,6 @@ app.post('/login', function (req,res) {
       users = JSON.parse(date);
       for (let i =0; i < users.length; i++){
         const user = users[i];
-        console.log(req.body);
         if (user.userEmail === req.body.userEmail && user.userPassword === req.body.userPassword) {
           foundUser = user;
           break
@@ -98,7 +180,6 @@ app.post('/user', (req, res) => {
       users = JSON.parse(date);
       for (let i =0; i < users.length; i++){
         const user = users[i];
-        console.log(req.body);
         if (user.id === req.body.id ) {
           foundUser = user;
           break
@@ -117,8 +198,6 @@ app.post('/user', (req, res) => {
 });
 
 app.post('/group', (req, res) => {
-  console.log(req.body);
-  console.log(req.cookies);
   
   const teachers = req.body,
     nameNewGroup = teachers[0]['nameGroup'],
@@ -247,15 +326,11 @@ app.post('/teacher', (req, res) => {
 })
 })
 
-
-
 app.get('/logout', function(req, res){
   res.cookie('dataUser', '', {expires: new Date(0)});
   
   res.redirect('/');
 });
-// app.get('/logout', function(req, res){
-//   res.cookie(dataUser, "", { expires: new Date(0), path: '/' });
-// });
+
 app.listen(port);
 console.log('Server running on ', ip, port);

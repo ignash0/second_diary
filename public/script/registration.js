@@ -21,7 +21,7 @@ function responseModalWindow(response){
     let text;
     if (response === 'yes') {
         text = ' Вы успешно зарегистрированны! Для дальнейшей работы войдите на сайт под своим именем.';
-        buttonOnModalRegA.setAttribute('href', './index.html')
+        buttonOnModalRegA.setAttribute('href', '/')
     } else {
         text = 'Введенный e-mail уже использутся другим пользователем. Пройдите регистрацию еще раз.';
         buttonOnModalReg.addEventListener('click', () => {

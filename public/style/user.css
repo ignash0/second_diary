@@ -8,7 +8,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
-main.user, main#addGroup, main#teacher {
+main.user, main#addGroup, main#teacher, main#journal {
     background: url('../image/blackboard.png') no-repeat;
     background-size: 100% 100%;
     width:90%;
@@ -88,3 +88,6 @@ main.user #options > li p{
     text-align: right;
     padding-right: 1em;
 }
+span[id^="error"] {
+
+    color: #87ad21;}

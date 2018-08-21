@@ -3,11 +3,12 @@
     <head>
         <title>student journal on-line</title>
         <meta charset="utf-8">
-        <link rel="import" href="./customeEements/page-header/page-header.html">
-        <link rel="stylesheet"  href="./style/base.css">
-        <link rel="stylesheet"  href="./style/registration.css">
+        <link rel="import" href="/public/customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="/public/style/base.css">
+        <link rel="stylesheet"  href="/public/style/registration.css">
     </head>
     <body>
+        <modal-window></modal-window>
         <div class="modalWindowRegistration">
             <div class="serverMesseg">
                 <h1 id='response'></h1>
@@ -47,33 +48,32 @@
                 <label for="surname">
                         <span>Фамилия :</span> 
                         <input type="text" name="userSurname" id="surname">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
                 
                 <label for="name">
                      <span>Имя :</span> 
                     <input type="text" name="userName" id="name">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
                 
                 <label for="fatherName">
                     <span>Отчество :</span>
                     <input type="text" name="userFatherName" id="fatherName">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
 
                 <label for="dateBirth">
                     <span>Дата рождения :</span>
                     <input type="text" name="userDateBirth" id="dateBirth">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
 
                 <label for="email">
                     <span>e-mail :</span>
                     <input type="text" name="userEmail" id="email">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
-
 
                 <label for="placeWork">
                     <span>Место работы :</span>
@@ -90,7 +90,7 @@
                 <label for="password">
                     <span>Пароль :</span>
                     <input type="password" name="userPassword" id="password">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
 
                 <input  id="registrationButton" value="Зарегистрироваться">
@@ -100,6 +100,6 @@
     <footer>
 
     </footer>
-    <script type="module" src="./script/registration.js"></script>
+    <script type="module" src="/public/script/registration.js"></script>
 
 </html>

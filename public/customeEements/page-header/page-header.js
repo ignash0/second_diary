@@ -34,8 +34,9 @@ const firstLi =document.querySelector("[slot='first-li']"),
 
 if (getCookieFromJSON('id')) {
     const userName = getCookieFromJSON('name'),
-        userSurname = getCookieFromJSON('surname');
-    aInLi.setAttribute('href','./user.html');
+        userSurname = getCookieFromJSON('surname'),
+        id = getCookieFromJSON('id');
+    aInLi.setAttribute('href', `/user/${id}`);
     aInLi.innerText = `${userName} ${userSurname}`;
     firstLi.appendChild(aInLi);
     lastLi.id = 'logOut';
@@ -43,7 +44,7 @@ if (getCookieFromJSON('id')) {
 } else {
     firstLi.id = 'enter';
     firstLi.innerText = 'ВХОД';
-    aInLi.setAttribute('href','./registration.html');
+    aInLi.setAttribute('href','/registration');
     aInLi.innerText = 'Регистрация';
     lastLi.appendChild(aInLi);
 };
@@ -58,16 +59,16 @@ if (logOut) {
     
         xhr.send();
         xhr.onload = function () {
-            document.location.href = '/index.html';
+            document.location.href = '/';
         }
     
        
     });
 };
 
-if (document.location.pathname === "/registration.html") {
+if (document.location.pathname === "/registration") {
     document.getElementById('enter').addEventListener('click', () => {
-        document.location.href = '/index.html';
+        document.location.href = '/';
     })
 };
 

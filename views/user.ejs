@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+        <link rel="import" href="/public/customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="/public/style/base.css">
+        <link rel="stylesheet"  href="/public/style/user.css">
+    </head>
+    <body>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
+        <main class="user">
+            <header>
+                <div id="information">
+                    <h1><%= name %></h1>
+                    <ul>
+                        <% info.forEach( item => { %>
+                        <li><%= item %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+                <img src="/public/image/boy.png" alt="image_user">
+            </header>
+            <ul id="options">
+                <li id="groupsCase">
+                    <h1>Группы:</h1>
+                    <ul id="groups"></ul>
+                    <a href="/add-group" id="newGroup">
+                        <p>Добавить группу</p>
+                    </a>
+                </li>
+                <li id="teachersCase">
+                    <h1>Преподаватели:</h1>
+                    <ul id="teachers"></ul>
+                    <a href="/add-teacher"  id="newTeacher">
+                        <p>Добавить учителя</p>
+                    </a>
+                </li>
+                <li id="timetableCase">
+                    <h1>Рассписание</h1>
+                    <ul></ul>
+                </li>
+            </ul>
+        </main>
+        
+    </body>
+    <footer>
+
+    </footer>
+</html>
