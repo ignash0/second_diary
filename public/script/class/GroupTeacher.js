@@ -5,13 +5,13 @@ import getElement  from "../getElement.js";
 export default class GroupTeacher extends FormSubmit{
     constructor(nameForm){
         super(nameForm);
-
+        this.subjectsTeachets= [];
         this.students =[];
         this.indexChangingUser;
     }
     addGroup() {
         if (this.ValuesInputs['nameGroup'] !== "") {
-            getElement('caption').innerText = `#${this.ValuesInputs['nameGroup']}`;
+            getElement('#result  caption').innerText = `Группа №${this.ValuesInputs['nameGroup']}`;
             getElement('[name="nameGroup"]').setAttribute('disabled', 'true');
 
         } else {
@@ -42,7 +42,34 @@ export default class GroupTeacher extends FormSubmit{
             })
         }
     }
-    addSubject() {
+    addSubjectTeacher() {
+        let subjectInput = getElement('[list="subject"]').value;
+        let teacherInput = getElement('[list="teacher"]').value;
+        let newSbbjectTeacher = {};
+        let id = getElement('[list="teacher"]').name;
+        newSbbjectTeacher.subjectName = subjectInput;
+        newSbbjectTeacher.teacherId = id;
+        
+        this.subjectsTeachets.push(newSbbjectTeacher);
+
+        let elemP = document.createElement('p');
+        let span1 = document.createElement('span');
+        let span2 = document.createElement('span');
+        span1.innerText = subjectInput;
+        span2.innerText = teacherInput;
+        let elemA = document.createElement('a');
+        elemA.setAttribute('href', `/user/${id}`);
+        elemA.setAttribute('target', '_blank');
+        elemA.appendChild(span2);
+        elemP.appendChild(span1);
+        elemP.appendChild(elemA);
+        
+        getElement('#result > div').appendChild(elemP);
+        getElement('[list="subject"]').value = '';
+        getElement('[list="teacher"]').value = '';
+
+    }
+    getSubject() {
         let response;
 
         const xhr = new XMLHttpRequest();
@@ -52,9 +79,47 @@ export default class GroupTeacher extends FormSubmit{
         xhr.send();
         xhr.addEventListener('load', () => {
             response = xhr.responseText;
-            callback(response);
+            let subjectTeachers = JSON.parse(response);
+
+            let subject = subjectTeachers.map(elem => elem['subjectName']);
+            this.createOptionDatalist(subject, 'datalist#subject');
+
+            let inputSubject = getElement('[list="subject"]');
+            let inputTeacher = getElement('[list="teacher"]');
+
+            inputSubject.addEventListener('change', event => {
+                let datalistTeacherOPtions = document.querySelectorAll('datalist#teacher > option');
+                datalistTeacherOPtions.forEach(item => item.parentNode.removeChild(item));
+                
+                this.getTeacher(subjectTeachers, event.target.value);
+            })
+            inputTeacher.addEventListener('change', event => {
+                let teachers = [];
+                subjectTeachers.forEach(item => {
+                    item['teachers'].forEach(elem => {
+                        teachers.push(elem)
+                    })
+                });
+                let selectTeacher = teachers.filter(elem => elem.name === event.target.value);
+                event.target.name = selectTeacher[0].id;
+            })
         })
-    
+    }
+    getTeacher(subjectTeachers, value) {
+
+        let selectSubject = subjectTeachers.filter(elem => elem['subjectName'] === value);
+        console.log()
+        if (selectSubject.length >= 1) {
+            let teachers = selectSubject[0].teachers.map(item => item.name);
+            this.createOptionDatalist(teachers, 'datalist#teacher');
+        }
+    }
+    createOptionDatalist(array, selectorDatalist) {
+        array.forEach(item => {
+            let option = document.createElement('option');
+            option.setAttribute('value', item);
+            getElement(selectorDatalist).appendChild(option);
+        })
     }
 
     createTableRow() {
@@ -98,11 +163,22 @@ export default class GroupTeacher extends FormSubmit{
     }
 
     creatGroupTeacher(url) {
+        this.students.forEach(item => item['subject'] =  this.subjectsTeachets);
+       
         formSubmitPostJson(url,JSON.stringify(this.students), (respons) => {
             this.modalWindow(respons);
             this.arrayInput.forEach(item => {
                 item.value = '';
             })
+            let tr = document.querySelectorAll('table > tr');
+            tr.forEach(item => {
+                item.parentNode.removeChild(item)
+            });
+
+            let resultP = document.querySelectorAll('#result > div > p');
+            resultP.forEach(item => {
+                item.parentNode.removeChild(item)
+            });
         })
     }
 

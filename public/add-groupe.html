@@ -18,53 +18,47 @@
                 <span slot="last-li"></span>
         </page-header>
         <main id="addGroup">
-            <header><h1>Комплектование новой группы</h1></header>
-            <section>
-                <label for="nameGroup">
-                    <span>Название новой группы  №</span>
-                    <input form="student" type="text" id="nameGroup" name="nameGroup">
-                </label>
-                <button id="addNewGroup">Создать новую группу</button>
-            </section>
-            <section id="addSubject">
-                <h1>Изучаемые пердметы:</h1>
-                <input list="subject" placeholder="Предмет">
-                <datalist id="subject">
-                    <option value="Internet Explorer">
-                            <option value="Firefox">
-                            <option value="Chrome">
-                            <option value="Opera">
-                            <option value="Safari">
-                </datalist>
-                <input list="teacher" placeholder="Преподаватель">
-                <datalist id="teacher">
-                        <option value="Internet Explorer">
-                                <option value="Firefox">
-                                <option value="Chrome">
-                                <option value="Opera">
-                                <option value="Safari">
-                </datalist>                 
-                <button id="addNewSubject">Добавить предмет:</button>
-            </section>
-            <section id="createStudent">
-                <form name="student" id="student">
-                    <div id="fullName">
-                        <input type="text" name="userSurname" placeholder="Фамилия">
-                        <input type="text" name="userName" placeholder="Имя">
-                        <input type="text" name="userFatherName" placeholder="Отчество">
-                    </div>
-                    <label for="userDateBirth"> 
-                        <span>Дата рождения:</span>
-                        <input type="text" id="userDateBirth" name="userDateBirth" placeholder="дд.мм.ггг"> 
+            <div>
+                <header><h1>Комплектование новой группы</h1></header>
+                <section>
+                    <label for="nameGroup">
+                        <span>Название новой группы  №</span>
+                        <input form="student" type="text" id="nameGroup" name="nameGroup">
                     </label>
-                    <label for="userEmail">
-                        <span>E-mail:</span>
-                        <input type="text" name="userEmail" id="userEmail" placeholder="makasim@gmail.com">
-                    </label> 
-                </form>
-                <button id="addStudent" type="button" form="student">Добавить ученика.</button>
-            </section>
-            <section id="result">
+                    <button id="addNewGroup">Создать новую группу</button>
+                </section>
+                <section id="addSubject">
+                    <p>Изучаемые пердметы:</p>
+                    <input list="subject" placeholder="Предмет">
+                    <datalist id="subject">
+                    </datalist>
+                    <input list="teacher" placeholder="Преподаватель">
+                    <datalist id="teacher">
+                    </datalist>                 
+                    <button id="addNewSubject">Добавить предмет:</button>
+                </section>
+                <section id="createStudent">
+                    <form name="student" id="student">
+                        <div id="fullName">
+                            <input type="text" name="userSurname" placeholder="Фамилия">
+                            <input type="text" name="userName" placeholder="Имя">
+                            <input type="text" name="userFatherName" placeholder="Отчество">
+                        </div>
+                        <label for="userDateBirth"> 
+                            <span>Дата рождения:</span>
+                            <input type="text" id="userDateBirth" name="userDateBirth" placeholder="дд.мм.ггг"> 
+                        </label>
+                        <label for="userEmail">
+                            <span>E-mail:</span>
+                            <input type="text" name="userEmail" id="userEmail" placeholder="makasim@gmail.com">
+                        </label> 
+                    </form>
+                    <button id="addStudent" type="button" form="student">Добавить ученика.</button>
+                </section>
+                <section id="result">
+                    <div>
+                        <h2>Предметы:</h2>
+                    </div>
                     <table>
                         <caption>№группы</caption>
                         <thead>
@@ -78,10 +72,11 @@
                             </tr>
                         </thead>
                     </table>
-                <button id="createGroupe">
-                    Добавить группу
-                </button>
-            </section>
+                    <button id="createGroupe">
+                        Добавить группу
+                    </button>
+                </section>
+            </div>
         </main>
         <script type="module" src="/public/script/addGroup.js"></script>
     </body>

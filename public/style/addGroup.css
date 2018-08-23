@@ -1,9 +1,14 @@
 section {
-    padding: 0 2em 1em 2em;
+    padding: 0 0 2em 2em;
 }
-main>header>h1 {
+main header>h1 {
     text-align: center;
     padding-top: 1em;
+}
+main>div {
+    overflow: auto;
+    height: 93.5%;
+    padding: 0 1em;
 }
 input{
     width: 10em;
@@ -78,4 +83,12 @@ table button{
 caption {
     font-size: 2em;
     color: #bee426;
+}
+
+#result p span {
+    padding-left: 5em;
+}
+
+#result p a:hover{
+    color: #87ad21;
 }

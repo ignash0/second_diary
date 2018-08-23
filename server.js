@@ -88,8 +88,40 @@ app.get('/user/:id', (req, res) => {
     if (err) {
       return console.log(err)
     } else {
-      const usersData = JSON.parse(data);
-      
+      const subjectDate = JSON.parse(data);
+
+      fs.readFile(__dirname + '/bd/user.json', (err, data) => {
+        if (err) {
+          return console.log(err)
+        } else {
+          const usersData = JSON.parse(data);
+          let foundUsers = [];
+
+          subjectDate.forEach(subject => {
+            let subjectTeachers = {};
+            subjectTeachers['subjectName'] = subject['subjectName'];
+            subjectTeachers['teachers'] = [];
+            subject['teachers'].forEach(teacherId => {
+              for ( let j = 0; j < usersData.length; j++) {
+                const user = usersData[j];
+                if (teacherId === user.id) {
+                  let teacherName = `${user.userSurname} ${user.userName.charAt(0)}.${user.userFatherName.charAt(0)}.`
+                  let teacher = {
+                    id: user.id,
+                    name: teacherName
+                  };
+                  subjectTeachers['teachers'].push(teacher); 
+                  
+                  break;
+                }
+              }
+            })
+            foundUsers.push(subjectTeachers);
+          })
+          let foundTeacher = JSON.stringify(foundUsers);
+          res.send(foundTeacher);
+        }
+       })
     }
    })
  })
@@ -199,9 +231,13 @@ app.post('/user', (req, res) => {
 
 app.post('/group', (req, res) => {
   
-  const teachers = req.body,
-    nameNewGroup = teachers[0]['nameGroup'],
+  const students = req.body,
+    nameNewGroup = students[0]['nameGroup'],
+    subjectGroup = students[0]['subject'],
     curator = req.cookies.dataUser.id;
+
+    fs.readFile(__dirname + '/bd/user.json', (err,data) => {
+      const usersData = JSON.parse(data);
 
     fs.readFile(__dirname + '/bd/group.json', (err, data) => {
       if (err) {
@@ -212,6 +248,7 @@ app.post('/group', (req, res) => {
 
         groups.forEach( elem => {
           if (elem.nameGroup === nameNewGroup) {
+
             equal = false
           }
         });
@@ -221,29 +258,28 @@ app.post('/group', (req, res) => {
         } else {
             const newGroup = {};
             newGroup.nameGroup = nameNewGroup;
-            newGroup.teachers = [];
-
-            teachers.forEach(item => {
+            newGroup.subject = subjectGroup;
+            newGroup.students = [];
+            
+            students.forEach(item => {
               const idUser = Math.random().toString(36).substr(2, 9),
                 password = Math.random().toString(36).substr(2, 6);
               item['curator'] = curator;
               item.status = 'student';
               item.id = idUser;
               item.userPassword = password;
-              newGroup.teachers.push(idUser);
-
-              fs.readFile(__dirname + '/bd/user.json', (err,data) => {
-                const usersData = JSON.parse(data);
-                usersData.push(item)
-                const newUser = JSON.stringify(usersData);
-                fs.writeFile(__dirname + '/bd/user.json', newUser, 'utf8', (err) => {
-                  if (err) throw err;
-                  console.log('The file has been saved!');
-                });
-
-              })
+              newGroup.students.push(idUser);
+              
+              usersData.push(item);
+              console.log(newGroup);
             });
-            
+
+            const newUser = JSON.stringify(usersData);
+            fs.writeFile(__dirname + '/bd/user.json', newUser, 'utf8', (err) => {
+              if (err) throw err;
+              console.log('The file has been saved!1');
+            });
+
             groups.push(newGroup);
             fs.writeFile(__dirname + '/bd/group.json',JSON.stringify(groups), 'utf8', (err) => {
               if (err) throw err;
@@ -254,65 +290,72 @@ app.post('/group', (req, res) => {
       }
   });
 });
+});
 
 app.post('/teacher', (req, res) => {
   
   const teachers = req.body;
-  teachers.forEach(teacher => {
-    fs.readFile(__dirname + '/bd/user.json', (err, data) => {
-      if (err) {
-        return console.log(err)
-      } else {
-        let usersData = JSON.parse(data);
-        let equalUser = true;
 
-      usersData.forEach(elem => {
-        
-        if (elem.userEmail === teacher.userEmail && elem.subject === teacher.subject) {
-          equalUser = false;
-        }
-      });
+  fs.readFile(__dirname + '/bd/user.json', (err, data) => {
+    if (err) {
+      return console.log(err)
+    } else {
+      let usersData = JSON.parse(data);
+      
 
-      if (!equalUser) {
-        res.send(`Преподаватель предмета ${teacher.subject} с e-mail: ${teacher.userEmail}  уже зарегистрирован`);
-      } else {
-
-        const idTeacher = Math.random().toString(36).substr(2, 9),
-          passwordTeacher = Math.random().toString(36).substr(2, 6);
-          teacher.id =idTeacher; 
-          teacher.userPassword = passwordTeacher;
-          teacher.status = 'teacher';
-  
-        fs.readFile(__dirname + '/bd/subject.json', (err, data) => {
-          if (err) {
-            return console.log(err)
-          } else {
-            const newSubject = {};
-            newSubject['teachers'] = [];
+      fs.readFile(__dirname + '/bd/subject.json', (err, data) => {
+        if (err) {
+          return console.log(err)
+        } else {
+          const subjectDate = JSON.parse(data);
           
-            const subjectDate = JSON.parse(data);
+
+          teachers.forEach(newTeacher => {
             let equalSubject = false;
-          
-            subjectDate.forEach(subject => {
-              if (subject['subjectName'] === teacher['subject']) {
-                subject['teachers'].push(teacher.id);
-                equalSubject = true;
+            let equalUser = true;
+
+            for (let i = 0; i < usersData.length; i++) {
+
+              let user = usersData[i];
+              if (user.userEmail === newTeacher.userEmail && user.subject === newTeacher.subject) {
+                equalUser = false;
+                break;
               }
-            });
-          
-            if (!equalSubject) {
-              newSubject['subjectName'] = teacher['subject'];
-              newSubject['teachers'].push(teacher.id);
-              subjectDate.push(newSubject);
             };
-            let newData = JSON.stringify(subjectDate)
-            fs.writeFile(__dirname + '/bd/subject.json', newData, 'utf8', (err) => {
-              if (err) throw err;
-              console.log('The file has been saved!');
-            });
-          }
-        });
-        usersData.push(teacher);
+          
+            if (!equalUser) {
+              res.send(`Преподаватель предмета ${newTeacher.subject} с e-mail: ${newTeacher.userEmail}  уже зарегистрирован`);
+            } else {
+              const newSubject = {};
+                newSubject['teachers'] = [];
+
+              const idTeacher = Math.random().toString(36).substr(2, 9),
+                passwordTeacher = Math.random().toString(36).substr(2, 6);
+                newTeacher.id =idTeacher; 
+                newTeacher.userPassword = passwordTeacher;
+                newTeacher.status = 'teacher';
+            
+              for (let i = 0; i < subjectDate.length; i++) {
+                if (subjectDate[i]['subjectName'] === newTeacher['subject']) {
+                  subjectDate[i]['teachers'].push(newTeacher.id);
+                  equalSubject = true;
+                }
+              };
+
+              if (!equalSubject) {
+                newSubject['subjectName'] = newTeacher['subject'];
+                newSubject['teachers'].push(newTeacher.id);
+                subjectDate.push(newSubject);
+              };
+              usersData.push(newTeacher);
+            }
+          })
+
+          let newData = JSON.stringify(subjectDate);
+          fs.writeFile(__dirname + '/bd/subject.json', newData, 'utf8', (err) => {
+            if (err) throw err;
+            console.log('The file has been saved!');
+          });
 
         let newUser = JSON.stringify(usersData);
         fs.writeFile(__dirname + '/bd/user.json', newUser, 'utf8', (err) => {
@@ -320,10 +363,10 @@ app.post('/teacher', (req, res) => {
           console.log('The file has been saved!');
           res.send('Новый преподаватель добавлен')
         });
-      }
+        }
+      })      
     }
-  })      
-})
+  })
 })
 
 app.get('/logout', function(req, res){
@@ -333,4 +376,5 @@ app.get('/logout', function(req, res){
 });
 
 app.listen(port);
+// app.listen(port, ip);
 console.log('Server running on ', ip, port);
