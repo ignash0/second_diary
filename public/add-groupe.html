@@ -12,7 +12,7 @@
         <link rel="stylesheet"  href="/public/style/user.css">
     </head>
     <body>
-        <modal-window ><p>Ghbdtn</p></modal-window>
+        <modal-window ></modal-window>
         <page-header>
                 <span slot="first-li"></span> 
                 <span slot="last-li"></span>
@@ -26,6 +26,13 @@
                         <input form="student" type="text" id="nameGroup" name="nameGroup">
                     </label>
                     <button id="addNewGroup">Создать новую группу</button>
+                </section>
+                <section id="periodStudy">
+                    <p>Период обучения с</span>
+                    <input type="date" form="student" name="learningFrom">
+                    <span> по </span>
+                    <input type="date" form="student" name="learningTo">
+                    
                 </section>
                 <section id="addSubject">
                     <p>Изучаемые пердметы:</p>
@@ -57,7 +64,7 @@
                 </section>
                 <section id="result">
                     <div>
-                        <h2>Предметы:</h2>
+                        <h1>Предметы:</h1>
                     </div>
                     <table>
                         <caption>№группы</caption>

@@ -1,11 +1,11 @@
 section {
-    padding: 0 0 2em 2em;
+    padding: 0 0 1.5em 2em;
 }
-main header>h1 {
+main#addGroup header>h1 {
     text-align: center;
     padding-top: 1em;
 }
-main>div {
+main#addGroup>div {
     overflow: auto;
     height: 93.5%;
     padding: 0 1em;

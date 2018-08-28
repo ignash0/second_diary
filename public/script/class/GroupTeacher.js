@@ -73,7 +73,7 @@ export default class GroupTeacher extends FormSubmit{
         let response;
 
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', '/subject');
+        xhr.open('GET', '/add-subject');
         
         xhr.setRequestHeader("Content-type", "application/json");
         xhr.send();
@@ -108,7 +108,6 @@ export default class GroupTeacher extends FormSubmit{
     getTeacher(subjectTeachers, value) {
 
         let selectSubject = subjectTeachers.filter(elem => elem['subjectName'] === value);
-        console.log()
         if (selectSubject.length >= 1) {
             let teachers = selectSubject[0].teachers.map(item => item.name);
             this.createOptionDatalist(teachers, 'datalist#teacher');
@@ -161,25 +160,32 @@ export default class GroupTeacher extends FormSubmit{
         button.parentNode.classList.add('change');
         this.indexChangingUser = this.students.indexOf(changingUser[0]);
     }
-
-    creatGroupTeacher(url) {
+    addInGroupSubjectsTeachets() {
         this.students.forEach(item => item['subject'] =  this.subjectsTeachets);
-       
-        formSubmitPostJson(url,JSON.stringify(this.students), (respons) => {
-            this.modalWindow(respons);
-            this.arrayInput.forEach(item => {
-                item.value = '';
-            })
-            let tr = document.querySelectorAll('table > tr');
-            tr.forEach(item => {
-                item.parentNode.removeChild(item)
-            });
+    }
+    creatGroupTeacher(url) {
+        console.log('this.students' + this.students);
+        if (this.students.length === 0) {
+            this.modalWindow('Не все поля заполнены или заполнены не верно')
+        } else {
+            console.log(this.students);
+            formSubmitPostJson(url,JSON.stringify(this.students), (respons) => {
+                this.modalWindow(respons);
+                this.arrayInput.forEach(item => {
+                    item.value = '';
+                })
+                let tr = document.querySelectorAll('table > tr');
+                tr.forEach(item => {
+                    item.parentNode.removeChild(item)
+                });
 
-            let resultP = document.querySelectorAll('#result > div > p');
-            resultP.forEach(item => {
-                item.parentNode.removeChild(item)
+                let resultP = document.querySelectorAll('#result > div > p');
+                resultP.forEach(item => {
+                    item.parentNode.removeChild(item)
+                });
             });
-        })
+            this.students = [];
+        }
     }
 
     get ValuesInputs() {

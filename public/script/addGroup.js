@@ -31,15 +31,6 @@ addNewSubject.addEventListener('click', () => {
 
 const creatGroup = getElement('#createGroupe');
 creatGroup.addEventListener('click', () => {
+    group.addInGroupSubjectsTeachets();
     group.creatGroupTeacher('/group')
 });
-
-// const subjects = getElement('#subject');
-// group.getSubject();
-
-// console.log(data);
-
-// // data.forEach(item => {
-// //     const option = document.createElement('option');
-// //     option.innerText(item[teachers])
-// // })

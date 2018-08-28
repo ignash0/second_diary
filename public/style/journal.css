@@ -1,0 +1,42 @@
+.journal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+table {
+    border-collapse: collapse;
+    background: #a8a5a5;
+    table-layout: fixed; 
+}
+td {
+    border: 1px solid white;
+    height: 1.5em;
+    empty-cells: hide;
+    text-align: center;
+    cursor: default;
+
+}
+table#journalStudent tbody tr td:first-child{
+    max-width: 3em;
+    min-width: 3em;
+}
+table#journalStudent tbody tr td:last-child {
+    max-width: 17em;
+    min-width: 17em;
+}
+table#journalProgress tbody td, table#journalProgress thead tr td{
+    max-width: 2em;
+    min-width: 2em;
+}
+table#journalProgress tbody > tr td:last-child{
+    max-width: 5em;
+    min-width: 5em;
+}
+table thead{
+    font-size: 0.8em
+}
+
+
+
+
