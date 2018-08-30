@@ -19,26 +19,34 @@
             text-decoration-line: underline;
             padding-left:1em;
             font-size: 1.2em;
+            margin: 0;
+            height: 15%;
         }
         p{
             text-align: right;
             padding-right: 1em;
             font-size: 0.6em;
+            margin: 0;
         }
         a {
             text-decoration: none;
             color: inherit;
+            height: 10%;
         }
         a:hover{
             color:#87ad21;
             transform: scale(1.1);
         }
+        div{
+            height: 70%;
+            overflow: auto;
+        }
     </style>
-    <div>
         <h1></h1>
-        <slot name="list-elements"></slot>
-        <a href=""><p></p></a>
-    </div>
+        <div>
+            <slot name="list-elements"></slot>
+        </div>
+            <a href=""><p></p></a>
 </template>
 <board-sticker>
     <span slot="list-elements"></span>

@@ -13,6 +13,7 @@ main.user, main#addGroup, main#teacher, main#journal, main#timetable {
     background-size: 100% 100%;
     width:90%;
     margin: 0 auto;
+
 }
 
 main.user header img{

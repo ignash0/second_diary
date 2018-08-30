@@ -1,0 +1,110 @@
+<main id="diary">
+    <div id="">
+        <% teachers.forEach(item => { %>
+        <section data-id-teacher=<%= item.id %>>
+            <h1>Дневник учащегося группы № <%= item.group %></h1>
+            <p><%= item.name %></p>
+            <div class="teacherWeek">
+                    <% let firstHalfWeek = [{'en': "monday",'ru': 'Понедельник'},{'en':"tuesday", 'ru': 'Вторник'},{'en':"wednesday", 'ru': 'Среда'}],
+                         secondHalfWeek  = [{'en': "thursday",'ru': 'Четверг'},{'en':"friday", 'ru': 'Пятница'},{'en':"saturday", 'ru': 'Суббота'}]; %>
+                    <% function week(partWeek) { %>
+                        <% partWeek.forEach(day => { %>
+                            <% let time = {'lesson-1': '', 'lesson-2': '', 'lesson-3': '', 'lesson-4': '', 'lesson-5': ''}, 
+                                 group = {'lesson-1': '', 'lesson-2': '', 'lesson-3': '', 'lesson-4': '', 'lesson-5': ''}; 
+                             item.lesson.forEach(lesson => {
+                                if (lesson.day === day.en) { 
+                                     switch (lesson.numberLesson) {
+                                         case 'lesson-1': 
+                                         time['lesson-1'] = lesson.time;
+                                         group['lesson-1'] = lesson.group;
+                                         break;
+                                     case 'lesson-2':
+                                         time['lesson-2'] = lesson.time; 
+                                         group['lesson-2'] = lesson.group;
+                                         break;
+                                     case 'lesson-3':
+                                         time['lesson-3'] = lesson.time; 
+                                         group['lesson-3'] = lesson.group; 
+                                         break;
+                                     case 'lesson-4':
+                                         time['lesson-4'] = lesson.time;
+                                         group['lesson-4'] = lesson.group; 
+                                         break; 
+                                     case 'lesson-5': 
+                                         time['lesson-5'] = lesson.time; 
+                                         group['lesson-5'] = lesson.group; 
+                                         break; 
+                                    }
+                                }
+                            }) %>
+                            <div class="day">
+                                <table id=<%= day.en %>>
+                                    <colgroup>
+                                    <col style="width:10%">
+                                    <col style="width:30%">
+                                    <col style="width:40%">
+                                    <col style="width:20%">
+                                    </colgroup> 
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4"><%= day.ru %></th>
+                                        </tr>
+                                        <tr>
+                                        <th>№</th>
+                                        <th>Предмет</th>
+                                        <th>Домашнее задание</th>
+                                        <th>Отметка</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="lesson-1">
+                                            <td>1</td>
+                                            <td class="subject"></td>
+                                            <td class="homeWork"></td>
+                                            <td class="mark"></td>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-2">
+                                            <td>2</td>
+                                            <td class="subject"></td>
+                                            <td class="homeWork"></td>
+                                            <td class="mark"></td>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-3">
+                                            <td>3</td>
+                                            <td class="subject"></td>
+                                            <td class="homeWork"></td>
+                                            <td class="mark"></td>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-4">
+                                            <td>4</td>
+                                            <td class="subject"></td>
+                                            <td class="homeWork"></td>
+                                            <td class="mark"></td>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-5">
+                                            <td>5</td>
+                                            <td class="subject"></td>
+                                            <td class="homeWork"></td>
+                                            <td class="mark"></td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                <div class="firstHalfWeek">
+                    <% week(firstHalfWeek) %>
+                </div>
+                <div class="secondHalfWeek">
+                <% week(secondHalfWeek) %>
+                </div>                    
+            </div>
+        </section>
+        <% }) %>
+    </div>
+</main>

@@ -1,10 +1,9 @@
 const express = require('express'),
-action = require('./actionServer'),
+  action = require('./actionServer'),
   app = express(),
-  fs = require('fs'),
   bodyParser = require('body-parser'),
+  favicon = require('serve-favicon'),
   cookieParser = require('cookie-parser');
-  const ejsLint = require('ejs-lint');
 
 app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
@@ -30,8 +29,15 @@ app.get('/user/:id', (req, res) => {
   res.sendFile(__dirname + '/public/add-groupe.html')
  });
 
- app.get('/group/:id', (req, res) => {
+app.get('/group/:id', (req, res) => {
   action.groupPage(req, res);
+});
+
+app.get('/journal/:id', (req, res) => {
+  action.journalPage(req, res);
+});
+app.get('/diary/:id', (req, res) => {
+  action.diary(req, res);
 });
 
 app.get('/logout', function(req, res){

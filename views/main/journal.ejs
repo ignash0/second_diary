@@ -1,0 +1,92 @@
+        <main id="journal">
+            <header>
+                <h1>Группа № <%= journalData.groupName %></h1>
+                <p>Предмет: <%= journalData.subjectName %></p>
+                <p>Преподаватель: <%= journalData.teacherName %></p>
+            </header>
+            <section class="journal">
+                <table id="journalStudent">
+                    <thead>
+                        <tr>
+                            <td  rowspan="4">№</td>
+                        </tr>
+        
+                        <tr>
+                            <td >Месяц</td>
+                        </tr>
+                        <tr  class="date">
+                            <td >Дата</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="listStudents">
+                        <% let num = 1;
+                           listStudents.forEach(student => { %>
+                                <tr>
+                                    <td><%= num %></td>
+                                    <td data-id-student=<%= student.id %>><%= student.name %></td>
+                                </tr>
+                         <% num++}) %>
+                         <tr>
+                            <td colspan="2">Домашнее задание</td>
+                         </tr>
+                    </tbody>
+                </table>
+                <div class="overflowProgress">
+                    <table id="journalProgress">
+                        <thead>
+                            <tr>
+                                <% journalDate.forEach(dayLesson => { %>
+                                    <td colspan="2" rowspan="1"><%= dayLesson.month %></td>
+                                <% }) %>
+                            </tr>
+                            <tr class="date">
+                                <% journalDate.forEach(dayLesson => { %>
+                                    <td colspan="2"><%= dayLesson.day %></br><%= dayLesson.date %></td>
+                                <% }) %>
+                            </tr>
+                            <tr>
+                                <% journalDate.forEach(dayLesson => { %>
+                                    <td title="Оценка">Отм.</td>
+                                    <td title="Посещение">Пос.</td>
+                                <% }) %>
+                            </tr>
+                        </thead>
+                        <tbody id="list-day-mark">
+                            <% listStudents.forEach(student => { %>
+                                <tr data-id-student=<%= student.id %>>
+                                    <% journalDate.forEach(dayLesson => { 
+                                        let fullDate = `${dayLesson.date}-${dayLesson.month}-${dayLesson.year}` %>
+                                            <td data-mark-date=<%= fullDate %> title=<%= fullDate %>></td>
+                                            <td data-missed-date=<%= fullDate %> title=<%= fullDate %> ></td>
+                                    <% }) %>
+                                </tr>
+                            <% }) %>                            
+                            <tr id="homeWork">
+                                <% journalDate.forEach(dayLesson => { 
+                                    let fullDate = `${dayLesson.date}-${dayLesson.month}-${dayLesson.year}` %>
+                                    <td colspan="2" data-homeWork-date=<%= fullDate %> title=<%= fullDate %>></td>
+                                <% }) %>  
+                           </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table class="middleMark">
+                    <thead>
+                        <tr>
+                            <td  rowspan="4">Средняя отметка</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% listStudents.forEach(student => { %>
+                            <tr>
+                                <td data-id-student=<%= student.id %>></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+            <button id="saveChange">Сохранить сделанные изменения</button>
+        </main>

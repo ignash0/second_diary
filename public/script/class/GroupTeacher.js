@@ -12,7 +12,7 @@ export default class GroupTeacher extends FormSubmit{
     addGroup() {
         if (this.ValuesInputs['nameGroup'] !== "") {
             getElement('#result  caption').innerText = `Группа №${this.ValuesInputs['nameGroup']}`;
-            getElement('[name="nameGroup"]').setAttribute('disabled', 'true');
+            getElement('[name="nameGroup"]').disabled = true;
 
         } else {
             this.modalWindow('Не указано название группы')
@@ -38,35 +38,55 @@ export default class GroupTeacher extends FormSubmit{
             }
             this.createTableRow();
             this.arrayInput.forEach(item => {
-                item.name !== 'nameGroup' ? item.value = '' : item.value = this.ValuesInputs['nameGroup'];
+                switch (item.name) {
+                    case 'nameGroup':
+                        item.value = this.ValuesInputs['nameGroup'];
+                        break;
+
+                    case 'learningFrom':
+                        item.value = this.ValuesInputs['learningFrom'];
+                        break;
+
+                    case 'learningTo':
+                        item.value = this.ValuesInputs['learningTo'];
+                        break;
+
+                    default:
+                        item.value = ''
+                        break;
+                }
             })
         }
     }
     addSubjectTeacher() {
         let subjectInput = getElement('[list="subject"]').value;
         let teacherInput = getElement('[list="teacher"]').value;
-        let newSbbjectTeacher = {};
-        let id = getElement('[list="teacher"]').name;
-        newSbbjectTeacher.subjectName = subjectInput;
-        newSbbjectTeacher.teacherId = id;
-        
-        this.subjectsTeachets.push(newSbbjectTeacher);
-
-        let elemP = document.createElement('p');
-        let span1 = document.createElement('span');
-        let span2 = document.createElement('span');
-        span1.innerText = subjectInput;
-        span2.innerText = teacherInput;
-        let elemA = document.createElement('a');
-        elemA.setAttribute('href', `/user/${id}`);
-        elemA.setAttribute('target', '_blank');
-        elemA.appendChild(span2);
-        elemP.appendChild(span1);
-        elemP.appendChild(elemA);
-        
-        getElement('#result > div').appendChild(elemP);
-        getElement('[list="subject"]').value = '';
-        getElement('[list="teacher"]').value = '';
+        if (subjectInput !== '' && teacherInput !== '') {
+            let newSbbjectTeacher = {};
+            let id = getElement('[list="teacher"]').name;
+            newSbbjectTeacher.subjectName = subjectInput;
+            newSbbjectTeacher.teacherId = id;
+            
+            this.subjectsTeachets.push(newSbbjectTeacher);
+    
+            let elemP = document.createElement('p');
+            let span1 = document.createElement('span');
+            let span2 = document.createElement('span');
+            span1.innerText = subjectInput;
+            span2.innerText = teacherInput;
+            let elemA = document.createElement('a');
+            elemA.setAttribute('href', `/user/${id}`);
+            elemA.setAttribute('target', '_blank');
+            elemA.appendChild(span2);
+            elemP.appendChild(span1);
+            elemP.appendChild(elemA);
+            
+            getElement('#result > div').appendChild(elemP);
+            getElement('[list="subject"]').value = '';
+            getElement('[list="teacher"]').value = '';
+        } else {
+            this.modalWindow('Не выбран предмет или преподаватель')
+        }
 
     }
     getSubject() {
@@ -131,13 +151,13 @@ export default class GroupTeacher extends FormSubmit{
             idCell.innerText = String(this.id());
             row.appendChild(idCell);
             for (let key in item) {
+                if (key === 'nameGroup' || key === 'learningFrom' || key === 'learningTo') {
+                    continue;
+                }
                 let   cell = document.createElement('th');
                 
                 let text;
                 text = item[key];
-                if (key === 'nameGroup') {
-                    continue;
-                }
                 cell.innerText = text;
                 row.appendChild(cell);
             }
@@ -183,6 +203,11 @@ export default class GroupTeacher extends FormSubmit{
                 resultP.forEach(item => {
                     item.parentNode.removeChild(item)
                 });
+                if(getElement('#result  caption')) {
+                    getElement('#result  caption').innerText = `Группа №`;
+                }
+                getElement('[name="nameGroup"]').disabled = false;
+    
             });
             this.students = [];
         }

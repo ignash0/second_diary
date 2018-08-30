@@ -84,3 +84,8 @@ td input {
     font-weight: bold;
     text-align: center;
 }
+button{
+    position: relative;
+    left: 50%;
+    margin-top: 1em;
+}

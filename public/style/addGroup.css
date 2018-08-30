@@ -1,7 +1,7 @@
 section {
     padding: 0 0 1.5em 2em;
 }
-main#addGroup header>h1 {
+main#addGroup header>h1, main#teacher  header>h1{
     text-align: center;
     padding-top: 1em;
 }

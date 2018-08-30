@@ -12,10 +12,12 @@ class Timtable {
             inputArray = Array.from(input),
             noEmptyInput = inputArray.filter(item => item.value !== ''),
             timeInput = noEmptyInput.filter(item => item.parentNode.className === 'time' ),
-            groupInput = noEmptyInput.filter(item => item.parentNode.className === 'group');
+            groupInput = noEmptyInput.filter(item => item.parentNode.className === 'group'),
+            subject = section.querySelector('p').innerText;
 
         timeInput.forEach(time => {
         	groupInput.forEach(group => {
+               
                 if (time.parentNode.parentNode === group.parentNode.parentNode) {
                     const lesson = {};
                 
@@ -27,6 +29,7 @@ class Timtable {
         			lesson.group = group.value;
                     lesson.time = time.value;
                     lesson.teacher = teacherId;
+                    lesson.subject = subject;
 
         			this.lessons.push(lesson)
         		}

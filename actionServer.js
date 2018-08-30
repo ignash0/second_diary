@@ -6,171 +6,314 @@ class Server {
   }
 
   userPage(req, res) {
-    this.readFileUserGroup(resUserPage);
-
-    function resUserPage(users, groupDate) {
-      let foundUser;
-
-      for (let i =0; i < users.length; i++){
-        if (users[i].id === req.params.id ) {
-          foundUser = users[i];
-          break
-        }
-      };
-
-      const info =[];
-      for (let key in foundUser) {
-        switch (key) {
-          case 'userDateBirth':
-              info.push(`Дата рождениея: ${foundUser[key]}`);
-              break;
-          case 'userEmail':
-              info.push(`E-mail: ${foundUser[key] }`);
-              break;
-          case 'userPlaceWork':
-              info.push(`Место работы: ${foundUser[key]}`);
-              break;
-          case 'userPosition':
-              info.push(`Должность: ${foundUser[key]})`);
-              break;
-          case 'status':
-              info.push(`Статус: ${foundUser[key] }`);
-              break;
-           case 'subject':
-              if (foundUser.status === 'teacher') {
-                info.push(`Преподаваемый  предмет: ${foundUser[key]}`);
-              }
-              break;
-          case 'nameGroup':
-              let group = {};
-              group.name = `Группа: ${foundUser[key]}`;
-              group.link = `/group/${foundUser[key]}`;
-              info.push(group);
-              break;
-          case 'curator':
-              let curator = {};
-              curator.link = `/user/${foundUser[key]}`;
-              for (let i =0; i < users.length; i++){
-                const user = users[i];
-                if (user.id === foundUser[key] ) {
-                  curator.name = `Куратор: ${user.userSurname} ${user.userName.charAt(0)}.${user.userFatherName.charAt(0)}.`;
-                  break
-                }
-              };
-              info.push(curator);
-              break;
-        }
-      }
-      const stickers = [];
-      switch (foundUser.status) {
-        case 'curator':
-            const stickerGroup = {};
-            let groupCurator,
-            nameIdGroupCurator;
-
-            groupCurator = groupDate.filter(item => item.curator === foundUser.id);
-            nameIdGroupCurator = groupCurator.map(item => {
-              let result ={};
-              result.name = item.nameGroup;
-              result.link = `/group/${item.idGroup}`;
-              return result
-            });
-            stickerGroup.name = nameIdGroupCurator;
-            stickerGroup.caption = 'Группы:';
-            if (foundUser.id === req.cookies.dataUser.id) {
-              stickerGroup.textLink = 'Добавить_группу:';
-              stickerGroup.hrefLink = '/add-group';
-            };
-            const stickerTeacher = {};
-            let teachers,
-              teachersName;
-            teachers = users.filter(item => item.status === 'teacher' && item.curator === foundUser.id);
-            teachersName = teachers.map(teacher => {
-              let result = {};
-              result.name = `${teacher.userSurname} ${teacher.userName.charAt(0)}.${teacher.userFatherName.charAt(0)}.` ;
-              result.link = `/user/${teacher.id}`;
-              return result;
-            });
-            stickerTeacher.name = teachersName;
-            stickerTeacher.caption = 'Преподаватели:';
-            if (foundUser.id === req.cookies.dataUser.id) {
-              stickerTeacher.textLink = 'Добавить_преподавателя:';
-              stickerTeacher.hrefLink = '/add-teacher';
-            };
-
-            const stickerTimetable = {};
-            let nameTimetable =  [{
-                'name': `Расписание преподавателей`,
-                'link': `/timetable`
-              }];
-            stickerTimetable.name = nameTimetable;
-            stickerTimetable.caption = 'Расписание';
-
-            stickers.push(stickerTeacher);
-            stickers.push(stickerGroup);
-            stickers.push(stickerTimetable);
-
-            break;
-
-        // case 'student':
-        //     let child = users.filter(item =>     item.curator === foundUser.id && item.);
-
-        //     break;     
-
-      //   case 'teacher':
-      //       let child = users.filter(item =>     item.curator === foundUser.id && item.);
-
-      //       break;  
-      // }
-
-      }
-      res.render('user', {main: 'user', name:`${foundUser.userSurname} ${foundUser.userName}  ${foundUser.userFatherName}`, info: info, stickers:stickers})
-    }
-  };
-  groupPage(req, res) {
-    this.readFileUserGroup(resGroupPage);
-    function resGroupPage(users, groupDate) {
-      let foundGroup;
+    this.readFileUserGroup((users, groupDate) => {
+      this.readFile('/bd/journals.json', journals => {
+        let foundUser;
   
-      for (let i =0; i < groupDate.length; i++) {
-        if (groupDate[i].idGroup === req.params.id ) {
-          foundGroup = groupDate[i];
-          break;
+        for (let i =0; i < users.length; i++){
+          if (users[i].id === req.params.id ) {
+            foundUser = users[i];
+            break
+          }
+        };
+  
+        const info =[];
+        for (let key in foundUser) {
+          switch (key) {
+            case 'userDateBirth':
+                info.push(`Дата рождениея: ${foundUser[key]}`);
+                break;
+            case 'userEmail':
+                info.push(`E-mail: ${foundUser[key] }`);
+                break;
+            case 'userPlaceWork':
+                info.push(`Место работы: ${foundUser[key]}`);
+                break;
+            case 'userPosition':
+                info.push(`Должность: ${foundUser[key]})`);
+                break;
+            case 'status':
+                info.push(`Статус: ${foundUser[key] }`);
+                break;
+             case 'subject':
+                if (foundUser.status === 'teacher') {
+                  info.push(`Преподаваемый  предмет: ${foundUser[key]}`);
+                }
+                break;
+            case 'nameGroup':
+                let group = {};
+                group.name = `Группа: ${foundUser[key]}`;
+                for (let i = 0; i < groupDate.length; i++) {
+                  if (groupDate[i].nameGroup === foundUser.nameGroup) {
+                    group.link = `/group/${groupDate[i].idGroup}`;
+                    break;
+                  }
+                }
+                info.push(group);
+                break;
+            case 'curator':
+                let curator = {};
+                curator.link = `/user/${foundUser[key]}`;
+                for (let i =0; i < users.length; i++){
+                  const user = users[i];
+                  if (user.id === foundUser[key] ) {
+                    curator.name = `Куратор: ${user.userSurname} ${user.userName.charAt(0)}.${user.userFatherName.charAt(0)}.`;
+                    break
+                  }
+                };
+                info.push(curator);
+                break;
+          }
         }
-      };
-      let stickers = [],
-        info = [];
-      
-      for (let i =0; i < users.length; i++){
-        let user = users[i];
-        if (user.id === foundGroup.curator ) {
-          let curator = {};
-          curator.name = `Куратор: ${user.userSurname} ${user.userName.charAt(0)}  ${user.userFatherName.charAt(0)}`;
-          curator.link = `/user/${user.id}`;
-          info.push(curator);
-          break;
-        }
-      }
+        const stickers = [];
+        switch (foundUser.status) {
+          case 'curator':
+              const stickerGroup = {};
+              let groupCurator,
+              nameIdGroupCurator;
+  
+              groupCurator = groupDate.filter(item => item.curator === foundUser.id);
+              nameIdGroupCurator = groupCurator.map(item => {
+                let result ={};
+                result.name = item.nameGroup;
+                result.link = `/group/${item.idGroup}`;
+                return result
+              });
+              stickerGroup.name = nameIdGroupCurator;
+              stickerGroup.caption = 'Группы:';
+              if (foundUser.id === req.cookies.dataUser.id) {
+                stickerGroup.textLink = 'Добавить_группу:';
+                stickerGroup.hrefLink = '/add-group';
+              };
+              const stickerTeacher = {};
+              let teachers,
+                teachersName;
+              teachers = users.filter(item => item.status === 'teacher' && item.curator === foundUser.id);
+              teachersName = teachers.map(teacher => {
+                let result = {};
+                result.name = `${teacher.userSurname} ${teacher.userName.charAt(0)}.${teacher.userFatherName.charAt(0)}.` ;
+                result.link = `/user/${teacher.id}`;
+                return result;
+              });
+              stickerTeacher.name = teachersName;
+              stickerTeacher.caption = 'Преподаватели:';
+              if (foundUser.id === req.cookies.dataUser.id) {
+                stickerTeacher.textLink = 'Добавить_преподавателя:';
+                stickerTeacher.hrefLink = '/add-teacher';
+              };
+  
+              // const stickerTimetable = {};
+              // stickerTimetable.name = [{
+              //   'name': `Расписание преподавателей`,
+              //   'link': `/timetable`
+              // }];
+              // stickerTimetable.caption = 'Расписание';
+  
+              stickers.push(stickerTeacher);
+              stickers.push(stickerGroup);
+              stickers.push(this.stickerTimetable());
+  
+              break;
+  
+          case 'student':
+          const journalName = [];
+              journals.forEach(item => {
+                if (foundUser.nameGroup === item.nameGroup) {
+                  let result = {
+                    'name': item.subject,
+                    'link': `/journal/${item.id}`
+                  }
+                  journalName.push(result)
+                }
+              })
+              const stickerJournal = {};
+              stickerJournal.caption = 'Журналы:';
+              stickerJournal.name = journalName;
+              stickers.push(stickerJournal);
 
-      let studentsGroup;
-      studentsGroup = users.filter(item => item.nameGroup === foundGroup.nameGroup);
-      studentsGroup.sort((a, b) => {
-        if (a.userSurname > b.userSurname) {
-          return 1;
+              const stickerDiary = {};
+              stickerDiary.name = [{
+                'name': `Дневник`,
+                'link': `/diary/foundUser.id`
+              }];
+              stickerDiary.caption = 'Дневник';
+              stickers.push(stickerDiary);
+            break;     
+  
+          case 'teacher':
+              stickers.push(this.stickerTimetable());
+              this.stickerJournals(foundUser.id);
+              stickers.push(this.stickerJournal);
+              break;  
+        // 
+  
         }
-        if (a.userSurname < b.userSurname) {
-          return -1;
-        }
-        return 0;
+        res.render('user', {main: 'user', name:`${foundUser.userSurname} ${foundUser.userName}  ${foundUser.userFatherName}`, info: info, stickers:stickers})
       })
-      studentsGroup.forEach(item => {
-        let student = {};
-        student.name = `${item.userSurname} ${item.userName}  ${item.userFatherName}`;
-        student.link =` /user/${item.id}`
-        info.push(student);
-      });
-      res.render('user', {main: 'user', name:`Группа №${foundGroup.nameGroup}`, info: info,    stickers:stickers})
-    }  
+    })
+  };
+  stickerTimetable() {
+    const stickerTimetable = {};
+    stickerTimetable.name = [{
+      'name': `Расписание преподавателей`,
+      'link': `/timetable`
+    }];
+    stickerTimetable.caption = 'Расписание';
+    return stickerTimetable
+  }
+  stickerJournals(foundUserData) {
+    this.readFile('/bd/journals.json', journals => {
+      const journalName = [];
+      journals.forEach(item => {
+        if (foundUserData === item.teacherId) {
+          let result = {
+            'name': item.subject,
+            'link': `/journal/${item.id}`
+          }
+          journalName.push(result)
+        }
+      })
+      const stickerJournal = {};
+      stickerJournal.caption = 'Журналы:';
+      stickerJournal.name = journalName;
+      this.stickerJournal = stickerJournal;
+    })
+    return this.stickerJournal
+  }
+
+  groupPage(req, res) {
+    this.readFileUserGroup((users, groupDate) => {
+      this.readFile('/bd/journals.json', journals => {
+        let foundGroup;
+    
+        for (let i =0; i < groupDate.length; i++) {
+          if (groupDate[i].idGroup === req.params.id ) {
+            foundGroup = groupDate[i];
+            break;
+          }
+        };
+        const stickers = [],
+          info = [];
+        
+        for (let i =0; i < users.length; i++){
+          let user = users[i];
+          if (user.id === foundGroup.curator ) {
+            let curator = {};
+            curator.name = `Куратор: ${user.userSurname} ${user.userName.charAt(0)}  ${user.userFatherName.charAt(0)}`;
+            curator.link = `/user/${user.id}`;
+            info.push(curator);
+            break;
+          }
+        }
+  
+        let studentsGroup;
+        studentsGroup = users.filter(item => item.nameGroup === foundGroup.nameGroup);
+        studentsGroup.sort((a, b) => {
+          if (a.userSurname > b.userSurname) {
+            return 1;
+          }
+          if (a.userSurname < b.userSurname) {
+            return -1;
+          }
+          return 0;
+        })
+        studentsGroup.forEach(item => {
+          let student = {};
+          student.name = `${item.userSurname} ${item.userName}  ${item.userFatherName}`;
+          student.link =` /user/${item.id}`
+          info.push(student);
+        });
+  
+        const stickerJournals = {};
+              let journalsGroup = journals.filter(item => item.nameGroup === foundGroup.nameGroup ),
+                journalsSubject = journalsGroup.map(journal => {
+                  let result = {};
+                  result.name = journal.subject ;
+                  result.link = `/journal/${journal.id}`;
+                  return result;
+                });
+              stickerJournals.name = journalsSubject;
+              stickerJournals.caption = 'Журналы:';
+                stickers.push(stickerJournals);
+        res.render('user', {main: 'user', name:`Группа №${foundGroup.nameGroup}`, info: info,    stickers:stickers})
+      })
+    })  
+  }
+  journalPage(req, res) {
+    this.readFile('/bd/journals.json', journals => {
+      this.readFileUserGroup((users, groupDate) => {
+        this.readFile('/bd/lessons.json', lessons => {
+          let foundJournal;
+          for (let i = 0; i < journals.length; i++) {
+            if (journals[i].id === req.params.id) {
+              foundJournal = journals[i];
+              break;
+            }
+          };
+          let  teacherName;
+          for (let i = 0; i < users.length; i++) {
+            if (users[i].id === foundJournal.teacherId) {
+              teacherName = `${users[i].userSurname} ${users[i].userName}  ${users[i].userFatherName}`;
+              break;
+            }
+          };
+          const journalData ={
+              'groupName': foundJournal.nameGroup,
+              'subjectName': foundJournal.subject,
+              'teacherName': teacherName
+            };
+  
+          let journalGroup = groupDate.filter(item => item.nameGroup === foundJournal.nameGroup);
+          let groupStudentsId = journalGroup[0].students.map(item => item);
+          let listStudents = groupStudentsId.map(item => {
+            let result = {};
+            for (let i = 0; i < users.length; i++) {
+              if(users[i].id === item){
+                result.name = `${users[i].userSurname} ${users[i].userName}  ${users[i].userFatherName}`;
+                result.id = users[i].id;
+                break;
+              }
+            }
+            return result;
+          })
+          let dateStart = new Date(journalGroup[0].learningFrom),
+            dateEnd = new Date (journalGroup[0].learningTo),
+            daysLessons =[];
+          
+          lessons.forEach(item => {
+            if(item.group === foundJournal.nameGroup && 
+              item.teacher === foundJournal.teacherId) {
+                daysLessons.push(item.day)
+              }
+            })
+            
+          const journalDate = [];
+          while (Date.parse(dateStart) !== Date.parse(dateEnd)) {
+            
+            let startDay = dateStart.toLocaleString('en-US', {weekday: 'long'});
+            startDay = startDay.replace(startDay[0], startDay[0].toLowerCase());
+            
+            daysLessons.forEach(day => {
+              if(startDay === day){
+                dateStart.getMonth()
+                let dayRu = ['Вс','Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+                let month = ['Января','Феварля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ]
+                let result = {
+                  'day':dayRu[dateStart.getDay()],
+                  'month': month[dateStart.getMonth()],   
+                  'date': dateStart.getDate(),
+                  'year': dateStart.getFullYear()
+                  }
+                  journalDate.push(result)
+              }
+            })
+            dateStart.setDate(dateStart.getDate() + 1);
+          }
+          res.render('user', {main: 'journal', journalData: journalData, 
+          listStudents: listStudents, journalDate: journalDate})
+        })
+      })
+    })
   }
   timetablePage(req, res) {
     this.readFileUserGroup((users, groupDate) => {
@@ -344,8 +487,8 @@ class Server {
       if (!equal) {
         res.send('Такая группа уже зарегистрированна.')
       } else {
-        const newGroup = {};
-        const idGroup = Math.random().toString(36).substr(2, 9);
+        const newGroup = {},
+          idGroup = Math.random().toString(36).substr(2, 9);
         newGroup.nameGroup = nameNewGroup;
         newGroup.subject = subjectGroup;
         newGroup.curator = curator;
@@ -369,7 +512,20 @@ class Server {
         this.writeNewFile('/bd/user.json', JSON.stringify(users));
 
         groupDate.push(newGroup);
-        this.writeNewFile('/bd/group.json', JSON.stringify(groupDate))
+        this.writeNewFile('/bd/group.json', JSON.stringify(groupDate));
+        
+        this.readFile('/bd/journals.json', journals => {
+          subjectGroup.forEach(item => {
+            const idJournal = Math.random().toString(36).substr(2, 9);
+            let newJournal = {};
+            newJournal.subject = item.subjectName;
+            newJournal.teacherId = item.teacherId;
+            newJournal.nameGroup = nameNewGroup;
+            newJournal.id = idJournal;
+            journals.push(newJournal);
+          })
+          this.writeNewFile('/bd/journals.json', JSON.stringify(journals))
+        })
 
         res.send(`Группа ${nameNewGroup} добавлена.`)         
       }
@@ -465,10 +621,11 @@ class Server {
             break
           }
         }
-        res.send(`Занятие №${equalLesson.numberLesson.charAt(0)} в группе ${equalLesson.group}
+        res.send(`Занятие №${equalLesson.numberLesson[equalLesson.numberLesson.length-1]} в группе ${equalLesson.group}
                   в ${dayRu} занято преподавателем ${occupiedTeacher}`);
       } else {
-        this.writeNewFile('/bd/lessons.json', JSON.stringify(dataReq));
+        dataReq.forEach(item => lessons.push(item));
+        this.writeNewFile('/bd/lessons.json', JSON.stringify(lessons));
         res.send('ok');
       }
     })
@@ -541,8 +698,16 @@ class Server {
       }
     })
   }
-
-
+  readFile(url, action) {
+    this.fs.readFile(__dirname + url, (err, data) => {
+      if (err) {
+        return console.log(err)
+      } else {
+        const dataFile = JSON.parse(data);
+        action(dataFile)
+      }
+    });
+  }
 }
 
 module.exports = new Server;

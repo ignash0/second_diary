@@ -12,6 +12,11 @@ addNewGroup.addEventListener('click', () => {
     group.addGroup()
 });
 
+// getElement('#addPeriodStudy').addEventListener('click', () => {
+//     getElement('[name="learningFrom"]').disabled = true;
+//     getElement('[name="learningTo"]').disabled = true;
+// })
+
 const addStudent = getElement('#addStudent');
 addStudent.addEventListener('click', () => {
     group.addUser()

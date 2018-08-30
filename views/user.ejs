@@ -3,30 +3,78 @@
     <head>
         <meta charset="utf-8">
         <title>student journal on-line</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+        <link rel="manifest" href="/public/site.webmanifest">
+        <link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#8ddbb1">
+
         <link rel="import" href="/public/customeEements/page-header/page-header.html">
         <link rel="import" href="/public/customeEements/sticker.html">
         <link rel="import" href="/public/customeEements/modalWindow/modal-window.html">
 
         <link rel="stylesheet"  href="/public/style/addGroup.css">
-        <link rel="stylesheet"  href="/public/style/timetable.css">
+        <% if (main === 'timetable') { %>
+            <link rel="stylesheet"  href="/public/style/timetable.css">
+        <% }%>
         <link rel="stylesheet"  href="/public/style/base.css">
         <link rel="stylesheet"  href="/public/style/user.css">
+        <% if (main === 'journal') { %>
+            <link rel="stylesheet"  href="/public/style/journal.css">
+        <% }%>
     </head>
     <body>
+    <% if (main === 'journal') { %>
+        <div id="formMarkHomework" class="markHomework">
+            <p>Отметить занятие ${missedDate} как пропущенное для ученика ${nameStudent}?</p>
+            <div class='saveMark'>
+                <input type="text" name='mark'>
+                <p>Коментарий:</p>
+                <textarea name="comment"></textarea>
+                <p>Сохранить?</p>
+            </div>
+            <div class="buttonChange">
+                <button id="save">ОК</button>
+                <button id="cancel">Отмена</button>               
+            </div>
+        </div>
+
+    <% } %>
     <modal-window ></modal-window>
-        <page-header>
-                <span slot="first-li"></span> 
-                <span slot="last-li"></span>
-        </page-header>
+    <page-header>
+        <span slot="first-li"></span> 
+        <span slot="last-li"></span>
+    </page-header>
     <% if (main === 'user') { %>
         <% include ./main/mainUser.ejs %> 
     <% } %>
     <% if (main === 'timetable') { %>
         <%- include('main/timetable.ejs', {teachers:teachersTimetable}) %>
+    <% } %>
+    <% if (main === 'journal') { %>
+        <%- include('main/journal.ejs', {journalData: journalData, 
+          listStudents: listStudents, journalDate: journalDate}) %>
     <% } %>     
     </body>
+     <% if (main === 'timetable') { %>
+        <script type="module" src="/public/script/timetable.js"></script>
+     <% }%>
+     <% if (main === 'journal') { %>
+        <script type="module" src="/public/script/journal.js"></script>
+     <% }%>
     <footer>
-
+        <h1>Контакты</h1>
+        <address >
+          <span class="fa fa-map-marker" aria-hidden="true"></span>
+          <span>Беларусь г.Гродно</span><br/>
+          <span class="fa fa-phone-square" aria-hidden="true"></span>
+          <span>Телефон +375 (29) 570-23-16</span><br/>
+          <span class="fa fa-envelope" aria-hidden="true"></span>
+          <a href="mailto:https://www.maksimignashevich@gmail.com">maksimignashevich@gmail.com</a><br>
+        </address><br/>
+        <p><small>2018 Hrodno</small></p>
     </footer>
-    <script type="module" src="/public/script/timetable.js"></script>
 </html>

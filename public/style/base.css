@@ -7,236 +7,184 @@
     font-style: normal;
     font-weight: normal;
   }
-            body {
-                font-family: "OpenSansRegular";
-                height: 100vh;
-                background: url('../image/background-body.jpg');
-                background-size:100% 100%;
-                color:rgb(249, 250, 243);
-            }
-            /* body header {
-                position: relative;
-                height: 5%;
-                border: 0.4em solid transparent;
-                border-image-source: url(../image/border2.png);
-                border-image-repeat: repeat;
-                border-image-slice: 50 0;
-                border-image-width: 0 0 2;  
-                }
+body {
+    font-family: "OpenSansRegular";
+    height: 100vh;
+    background: url('../image/background-body.jpg');
+    background-size:100% 100%;
+    color:rgb(249, 250, 243);
+}
+h1, body, ul, blockquote, menu, figure{
+    margin: 0;
+}
+body>header > menu {
+    padding: 0;
+}
+main {
+    position: relative;
+    height:95%;
+}
+main.mainIndex h1 {
+    position: absolute;
+    top: 15%;
+    left:10%;
+}
+.blockquote {
+    right: 10%;
+    top: 31%;
+    position: absolute;
+    width: 50%;
+    font-size: 1.5em;
+}
+cite{
+    position: relative;
+    top: 0.5em;
+    display: block;
+    text-align:right;
+    text-decoration-style: none;
+}
+.background {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background: radial-gradient(circle at 50% 85%, #faffba 18%, #f1fa9d 18%, #f1fa9d 23%, #f5ff80 23%, #f5ff80 29%, #e5f48f 29%, #e5f48f 37%, #f1ff4a 37%, #f1ff4a 50%, #c7dc1d 50%, #c7dc1d 65%, #a5ca1a 65%, #a5ca1a 83%, #8caa0c 83%);
+}
+.background::after, .land::after{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url('../image/background3.jpg') no-repeat;
+    background-size: cover;
+    opacity: 0.08;
+    filter: contrast(1.8);
+}
+.land {
+    background: linear-gradient(to right, #c3ca22 50%,#9ea70e 0);
+    background-size: 5em 100%;
+    transform: perspective(7px) rotateX(9deg);
+    position: absolute;
+    height: 15%;
+    width: 100%;
+    bottom: 0;
+}
+ul {
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+    color:inherit;
+}
+main.mainIndex img {
+    position: absolute;
+    width: 100%;
+    display: block;
+    bottom: 0;
+    max-width: 950px;
+}
+.modalWindowEnter, .modalWindowRegistration {
+    z-index: 555;
+    height: calc(100% + 0.8em);
+    width: 0;
+    position: absolute;
+    right: 0;
+    background-color: rgba(229, 232, 235, 0.8);
+    overflow: hidden;
+    opacity: 0;
+    transition:  0.25s ease-in-out;
+}
+.openModalWindow {
+    width:100%;
+    left: 0;
+    opacity: 1;
+}
+.modalWindowMessige, .serverMesseg{
+    color:white;
+    /* background-color: rgb(203,204,204, 1); */
+    position: absolute;
+    background:url('../image/Background-4.png');
+    background-size: cover;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2em;
+    width: 26em;
+    height: auto;
+    padding: 0 0 1.5em 0;
+    border: 0.1em solid;
+    font-style: italic;
+}
+.modalWindowEnter form label{
+    padding: 0.5em;
+    height: auto;
+    width: 65%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+.modalWindowMessige h1 {
+    font-size: 1.5em;
+    width: 80%;
+    text-align: center;
+    margin:0 auto;
+    padding: 1em 0;
+}
+.modalWindowEnter label input{
+    text-indent: 1em;
+    background-color: rgba(255, 255, 255, 0.5);
+    outline: none;
+    border: none;
+    width: 15em;
+}
+.modalWindowEnter label input:focus{
+    background-color: rgba(255, 255, 255, 1);
+}
+div.button {
+    border: 0.1em;
+    text-align: right;
+    padding-right: 4.5em;
+}
+div.button button{
+    border-radius: 0.5em;
+    cursor: pointer;
+    height: 2em;
+    font-style: italic;
+    font-weight: bold;
+    outline: none;
+    transition: 0.2s ease;
+    border: none;
+}
+div.button button:hover{
+    background-color: white;
+    transform: scale(1.05)
+}
+#checkin{
+    width: 3em;
+}
+blockquote{
+    background: rgba(144, 144, 144, 0.6);
+    padding: 1em;
+    border-radius: 1em;
+}
+blockquote::after{
+    content: '';
+    position: absolute;
+    border: 13px solid transparent;
+    border-top: 17px solid rgba(144, 144, 144, 0.6);
+    bottom: 0.15em;
+    right: 5em;
+}
+footer {
+    height: auto;
+    border: 0.4em solid transparent;
+    border-image-source: url(../image/border2.png);
+    border-image-repeat: repeat;
+    border-image-slice: 50 0;
+    border-image-width: 2 0 0; 
+    text-align: center;
+}
+footer address span{
+    padding: 0.5em 0;
+}
 
-            body > header > menu {
-                height: 100%;
-            }
-            header > a >  figure {
-                position: absolute;
-                height: 100%;
-                top: 0;
-                padding-bottom: 0.2em;
-            }
-            header figure img {
-                height: 100%;
-                width: auto;
-            }
-            header figure figcaption {
-                display: inline;
-                position: relative;
-                bottom: 0.4em;
-            }
-
-            body > header menu ul {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-                align-items: center;
-                width: 100%;
-                margin:0 6em 0 0;
-                padding: 0;
-                height: 100%;
-            }
-
-            body > header menu ul li {
-                padding: 0 1em;
-                font-size: 80%
-            } */
-
-            h1, body, ul, blockquote, menu, figure{
-                margin: 0;
-            }
-
-            body>header > menu {
-                padding: 0;
-            }
-            main {
-                position: relative;
-                height:95%;
-            }
-            main.mainIndex h1 {
-                position: absolute;
-                top: 15%;
-                left:10%;
-            }
-
-            .blockquote {
-                right: 10%;
-                top: 31%;
-                position: absolute;
-                width: 50%;
-                font-size: 1.5em;
-            }
-            cite{
-                position: relative;
-                top: 0.5em;
-                display: block;
-                text-align:right;
-                text-decoration-style: none;
-            }
-
-            .background {
-                height: 100%;
-                overflow: hidden;
-                position: relative;
-                background: radial-gradient(circle at 50% 85%, #faffba 18%, #f1fa9d 18%, #f1fa9d 23%, #f5ff80 23%, #f5ff80 29%, #e5f48f 29%, #e5f48f 37%, #f1ff4a 37%, #f1ff4a 50%, #c7dc1d 50%, #c7dc1d 65%, #a5ca1a 65%, #a5ca1a 83%, #8caa0c 83%);
-
-            }
-            .background::after, .land::after{
-                content: "";
-                position: absolute;
-                height: 100%;
-                width: 100%;
-                background: url('../image/background3.jpg') no-repeat;
-                background-size: cover;
-                opacity: 0.08;
-                filter: contrast(1.8);
-            }
-            .land {
-                background: linear-gradient(to right, #c3ca22 50%,#9ea70e 0);
-                background-size: 5em 100%;
-                transform: perspective(7px) rotateX(9deg);
-                position: absolute;
-                height: 15%;
-                width: 100%;
-                bottom: 0;
-            }
-
-            ul {
-                list-style-type: none;
-            }
-
-            a{
-                text-decoration: none;
-                color:inherit;
-            }
-            main.mainIndex img {
-                position: absolute;
-                width: 100%;
-                display: block;
-                bottom: 0;
-                max-width: 950px;
-            }
-
-            .modalWindowEnter, .modalWindowRegistration {
-                z-index: 555;
-                height: calc(100% + 0.8em);
-                width: 0;
-                position: absolute;
-                right: 0;
-                background-color: rgba(229, 232, 235, 0.8);
-                overflow: hidden;
-                opacity: 0;
-                transition:  0.25s ease-in-out;
-            }
-
-            .openModalWindow {
-                width:100%;
-                left: 0;
-                opacity: 1;
-            }
-  
-            .modalWindowMessige, .serverMesseg{
-                color:white;
-                /* background-color: rgb(203,204,204, 1); */
-                position: absolute;
-                background:url('../image/Background-4.png');
-                background-size: cover;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                border-radius: 2em;
-                width: 26em;
-                height: auto;
-                padding: 0 0 1.5em 0;
-                border: 0.1em solid;
-                font-style: italic;
-            }
-            .modalWindowEnter form label{
-                padding: 0.5em;
-                height: auto;
-                width: 65%;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                margin: 0 auto;
-            }
-            .modalWindowMessige h1 {
-                font-size: 1.5em;
-                width: 80%;
-                text-align: center;
-                margin:0 auto;
-                padding: 1em 0;
-            }
-            .modalWindowEnter label input{
-                text-indent: 1em;
-                background-color: rgba(255, 255, 255, 0.5);
-                outline: none;
-                border: none;
-                width: 15em;
-            }
-            .modalWindowEnter label input:focus{
-                background-color: rgba(255, 255, 255, 1);
-            }
-  
-            div.button {
-                border: 0.1em;
-                text-align: right;
-                padding-right: 4.5em;
-            }
-            div.button button{
-                border-radius: 0.5em;
-                cursor: pointer;
-                height: 2em;
-                font-style: italic;
-                font-weight: bold;
-                outline: none;
-                transition: 0.2s ease;
-                border: none;
-            }
-            div.button button:hover{
-                background-color: white;
-                transform: scale(1.05)
-            }
-            #checkin{
-                width: 3em;
-            }
-            blockquote{
-                background: rgba(144, 144, 144, 0.6);
-                padding: 1em;
-                border-radius: 1em;
-            }
-            blockquote::after{
-                content: '';
-                position: absolute;
-                border: 13px solid transparent;
-                border-top: 17px solid rgba(144, 144, 144, 0.6);
-                bottom: 0.15em;
-                right: 5em;
-            }
-
-
-            footer {
-                height: 10vh;
-                border: 0.4em solid transparent;
-                border-image-source: url(../image/border2.png);
-                border-image-repeat: repeat;
-                border-image-slice: 50 0;
-                border-image-width: 2 0 0; 
-            }
