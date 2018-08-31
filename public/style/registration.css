@@ -69,8 +69,9 @@ label{
     cursor: pointer;
 
 }
-span#error {
-    color: red;
+span[id^="error"] {
+    font-family: 'bord-h1';
+    color: #87ad21;
     display: inline;
     left: 110%;
     width: 50%;
@@ -118,15 +119,14 @@ div.genderRadio label{
     flex-grow: 1;
 }
 
-input[type="submit"]{
+input#registrationButton{
     position: relative;
     left: 55%;
     transition: 0.2s ease;
     cursor: pointer;
     transform: scale(1);
-    transition-property: transform;
 }
-input[type="reset"]:hover{
+input#registrationButton:hover, input:focus{
     color:#bee426;
     transform: scale(1.2);
 }

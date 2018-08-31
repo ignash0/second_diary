@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+        <link rel="manifest" href="/public/site.webmanifest">
+        <link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#8ddbb1">
+
+        <link rel="import" href="/public/customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="/public/style/addGroup.css">
+        <link rel="import" href="/public/customeEements/modalWindow/modal-window.html">
+        <link rel="stylesheet"  href="/public/style/base.css">
+        <link rel="stylesheet"  href="/public/style/user.css">
+    </head>
+    <body>
+        <modal-window ></modal-window>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
+        <main id="addGroup">
+            <div>
+                <header><h1>Комплектование новой группы</h1></header>
+                <section>
+                    <label for="nameGroup">
+                        <span>Название новой группы  №</span>
+                        <input form="student" type="text" id="nameGroup" name="nameGroup">
+                    </label>
+                    <button id="addNewGroup">Создать новую группу</button>
+                </section>
+                <section id="addSubject">
+                    <p>Изучаемые пердметы:</p>
+                    <input list="subject" placeholder="Предмет">
+                    <datalist id="subject">
+                    </datalist>
+                    <input list="teacher" placeholder="Преподаватель">
+                    <datalist id="teacher">
+                    </datalist>                 
+                    <button id="addNewSubject">Добавить предмет:</button>
+                </section>
+                <section id="periodStudy">
+                        <span>Период обучения с</span>
+                        <input type="date" form="student" name="learningFrom">
+                        <span> по </span>
+                        <input type="date" form="student" name="learningTo">
+                </section>
+                <section id="createStudent">
+                    <form name="student" id="student">
+                        <div id="fullName">
+                            <input type="text" name="userSurname" placeholder="Фамилия">
+                            <input type="text" name="userName" placeholder="Имя">
+                            <input type="text" name="userFatherName" placeholder="Отчество">
+                        </div>
+                        <label for="userDateBirth"> 
+                            <span>Дата рождения:</span>
+                            <input type="text" id="userDateBirth" name="userDateBirth" placeholder="дд.мм.ггг"> 
+                        </label>
+                        <label for="userEmail">
+                            <span>E-mail:</span>
+                            <input type="text" name="userEmail" id="userEmail" placeholder="makasim@gmail.com">
+                        </label> 
+                    </form>
+                    <button id="addStudent" type="button" form="student">Добавить ученика.</button>
+                </section>
+                <section id="result">
+                    <div>
+                        <h1>Предметы:</h1>
+                    </div>
+                    <table>
+                        <caption>№группы</caption>
+                        <thead>
+                            <tr>
+                              <th>№</th>
+                              <th>Фамилия</th>
+                              <th>Имя</th>
+                              <th>Отчество</th>
+                              <th>Дата рождения</th>
+                              <th>E-mail</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <button id="createGroupe">
+                        Добавить группу
+                    </button>
+                </section>
+            </div>
+        </main>
+        <script type="module" src="/public/script/addGroup.js"></script>
+    </body>
+    <footer>
+        <h1>Контакты</h1>
+        <address >
+          <span class="fa fa-map-marker" aria-hidden="true"></span>
+          <span>Беларусь г.Гродно</span><br/>
+          <span class="fa fa-phone-square" aria-hidden="true"></span>
+          <span>Телефон +375 (29) 570-23-16</span><br/>
+          <span class="fa fa-envelope" aria-hidden="true"></span>
+          <a href="mailto:https://www.maksimignashevich@gmail.com">maksimignashevich@gmail.com</a><br>
+        </address><br/>
+        <p><small>2018 Hrodno</small></p>
+    </footer>
+</html>

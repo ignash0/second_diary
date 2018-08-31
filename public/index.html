@@ -3,41 +3,45 @@
     <head>
         <meta charset="utf-8">
         <title>student journal on-line</title>
-        <link rel="stylesheet"  href="./style/base.css">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+        <link rel="manifest" href="/public/site.webmanifest">
+        <link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#8ddbb1">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="import" href="/public/customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="/public/style/base.css">
         
-        <script src="./script/modalWindow.js"></script>
     </head>
     <body>
         <div class="modalWindowEnter">
-            <form action="/login" method="POST">
-                <h1>Для входа введите ваши личные данные:</h1>
-               <label for="email">
-                   <span>Отчество:</span><input type="text" name="userEmail" id="email">
-               </label>
-               <label for="password">
-                   <span>Пароль:</span><input type="password" name="userPassword" id="password">
-               </label>
-               <div class="button">
-                   <input type="button" name="submin" id="chekin">
-                   <input type="button" name="cancel" value="Отмена">
-               </div>
-            </form>
+            <div class="modalWindowMessige">
+                <div id="formCheckin">
+                    <h1>Для входа введите ваши личные данные:</h1>
+                    <form action="" method="" name="authorization" >
+                       <label for="email">
+                           <span>E-mail:</span><input type="text" name="userEmail" id="email">
+                       </label>
+                       <label for="password">
+                           <span>Пароль:</span><input type="password" name="userPassword" id="password">
+                       </label>
+                    </form>
+                </div>
+                <div class="button">
+                    <button id="checkin">Ок</button>
+                    <button id="cancel">Отмена</button>
+                </div>
+            </div>
         </div>
-        
-        <header>
-            <menu>
-                <ul>
-                    <li id="enter"><a href="#">ВХОД</a></li>
-                    <li><a href="./registration.html">Регистрация</a></li>
-                </ul>
-            </menu>
-            <a href="./index.html">
-                <figure>
-                    <img src="./image/student.png" alt="student">
-                    <figcaption>On-line</figcaption>
-                </figure>
-            </a>
-        </header>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
         <main class="mainIndex">
             <div class="background">
                 <div class="sky">
@@ -56,9 +60,20 @@
                     <a href="https://ru.wikipedia.org/wiki/%D0%A2%D0%BE%D1%84%D1%84%D0%BB%D0%B5%D1%80,_%D0%AD%D0%BB%D0%B2%D0%B8%D0%BD" title="американский философ, социолог и футуролог, один из авторов концепции постиндустриального общества">Элвин Тоффлер</a>
                 </cite>
             </div>
-             <img src="./image/silhouettes2.PNG" alt="silhouettes students">
+             <img src="/public/image/silhouettes2.PNG" alt="silhouettes students">
         </main>
+        <script type="module" src="/public/script/main.js"></script>
     </body>
     <footer>
+            <h1>Контакты</h1>
+            <address >
+              <span class="fa fa-map-marker" aria-hidden="true"></span>
+              <span>Беларусь г.Гродно</span><br/>
+              <span class="fa fa-phone-square" aria-hidden="true"></span>
+              <span>Телефон +375 (29) 570-23-16</span><br/>
+              <span class="fa fa-envelope" aria-hidden="true"></span>
+              <a href="mailto:https://www.maksimignashevich@gmail.com">maksimignashevich@gmail.com</a><br>
+            </address><br/>
+            <p><small>2018 Hrodno</small></p>
     </footer>
 </html>

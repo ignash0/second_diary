@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+
+        <link rel="import" href="./customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="./style/addGroup.css">
+        <link rel="import" href="./customeEements/modalWindow/modal-window.html">
+
+        <link rel="stylesheet"  href="./style/base.css">
+        <link rel="stylesheet"  href="./style/user.css">
+        <link rel="stylesheet"  href="./style/journal.css">
+    </head>
+    <body>
+        <modal-window></modal-window>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
+        <main id="journal">
+            <header>
+                <h1>Группа:</h1>
+                <p></p>
+            </header>
+            <section class="journal">
+                <table id="journalStudent">
+                    <thead>
+                        <tr>
+                            <td  rowspan="4">№</td>
+                        </tr>
+        
+                        <tr>
+                            <td >Месяц</td>
+                        </tr>
+                        <tr class="date">
+                            <td >Дата</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td id="student">Иванов Иван Иванович</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td id="student">Петров Петр Петрович</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td id="student">Сидоров Сидор Сидорович</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td id="student">Шишкин Петр Сергеевич</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table id="journalProgress">
+                    <thead>
+                        <tr>
+                            
+                            <td colspan="2" rowspan="1">Сентябрь</td>
+                            <td colspan="2" rowspan="1">Сентябрь</td>
+                        </tr>
+                        <tr class="date">
+                                <td colspan="2">Пн</br>22</td>
+
+                            <td colspan="2">Пн</br>22</td>
+                        </tr>
+                        <tr>
+                            <td title="Оценка">Отм.</td>
+                            <td title="Посещение">Пос.</td>
+                            <td title="Оценка">Отм.</td>
+                            <td title="Посещение">Пос.</td>
+
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td>100</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>88</td>
+                    </tr>
+    
+                </table>
+            </section>
+        </main>
+        <!-- <script src="./script/journal.js"></script> -->
+    </body>
+    <footer>
+
+    </footer>
+</html>

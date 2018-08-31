@@ -1,0 +1,95 @@
+<template>
+    <style>
+        :host {
+            z-index: 555;
+            height: calc(100% + 0.8em);
+            width: 0;
+            position: absolute;
+            right: 0;
+            background-color: rgba(229, 232, 235, 0.8);
+            overflow: hidden;
+            opacity: 0;
+            transition:  0.25s ease-in-out;
+        }
+        .modalWindowMessige {
+            color:white;
+            position: absolute;
+            background:url('/public/image/Background-4.png');
+            background-size: cover;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 2em;
+            width: 26em;
+            height: auto;
+            padding: 0 0 1.5em 0;
+            border: 0.1em solid;
+            font-style: italic;
+        }
+        h1 {
+            text-align: center;
+        }
+        button{
+            display: block;
+            margin: 0 auto;
+            padding: 0 1em;
+            border-radius: 0.8em;
+            cursor: pointer;
+            height: 2em;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 1em;
+            outline: none;
+            transition: 0.2s ease;
+            border: none;
+        }
+        button:hover{
+            background-color: white;
+            transform: scale(1.05)
+        }
+        .openModalWindow {
+            width:100%;
+            left: 0;
+            opacity: 1;
+        }
+    </style>
+    <div class="modalWindowMessige">
+        <h1 id="text"></h1>
+        <button id="button">Ok</button>
+    </div>
+    
+</template>
+<script>
+    class ModalWindow extends HTMLElement {
+        
+        constructor() {
+            super();
+
+            const template = document.currentScript.ownerDocument.querySelector('template');
+
+            const shadow = this.attachShadow({mode: 'open'});
+            shadow.appendChild(template.content.cloneNode(true));
+
+            this.h1 = this.shadowRoot.querySelector('#text');
+            this.button = this.shadowRoot.querySelector('#button');
+
+            this.button.addEventListener('click', () => {
+                this.setAttribute('open', 'false');
+            });
+
+        }
+        static get observedAttributes() {return ['open', 'text']; }
+
+        attributeChangedCallback(attr, oldValue, newValue) {
+            this.h1.innerText = `${this.getAttribute('text')}`;
+            if (attr === 'open') {
+                if (newValue === 'true') {
+                    this.classList.add('openModalWindow')
+                } else {
+                    this.classList.remove('openModalWindow');
+                }
+            }
+        }
+    }
+    customElements.define('modal-window', ModalWindow);
+</script>

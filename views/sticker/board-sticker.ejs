@@ -1,0 +1,10 @@
+<board-sticker caption=<%= caption %> <% if (textLink) {%>
+text-link=<%=textLink %> href=<%= hrefLink %> 
+<% } else { %>
+text-link=''<% } %>>
+    <ul slot="list-elements">
+        <% name.forEach( item => { %>
+            <li><a href= <%= item.link %> ><%= item.name %></a></li>
+        <% }); %>
+    </ul>
+</board-sticker>

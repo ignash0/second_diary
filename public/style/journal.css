@@ -1,0 +1,150 @@
+.journal {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0;
+}
+main>header {
+    padding-top: 2em;
+}
+main>header h1{
+    text-align: center;
+    padding: 1em 0 1.5em 0;
+}
+main>header p{
+    font-size: 1.5em;
+    margin: 0;
+    padding-left: 5em;
+}
+main>header p:last-child{
+    padding-bottom: 1em;
+}
+
+table {
+    border-collapse: collapse;
+    background: #a8a5a5;
+    table-layout: fixed; 
+}
+td {
+    border: 1px solid white;
+    height: 1.5em;
+    empty-cells: hide;
+    text-align: center;
+    cursor: default;
+}
+table#journalStudent tbody tr td:first-child, table#journalStudent thead tr:first-child td{
+    max-width: 3em;
+    min-width: 3em;
+}
+table#journalStudent tbody tr td:last-child {
+    max-width: 17em;
+    min-width: 17em;
+}
+table#journalProgress tbody td, table#journalProgress thead tr td{
+    max-width: 2em;
+    min-width: 2em;
+}
+table thead{
+    font-size: 0.8em
+}
+.date{
+    height: 3.1em;
+}
+.overflowProgress{
+    width: calc(100% - 20em);
+    overflow: auto;
+}
+.middleMark td {
+    width: 3em;
+}
+.middleMark thead td{
+    height: 6.4em;
+}
+.markHomework{
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, 7);
+    background-color: #6cb94d;
+    width: 20em;
+    border-radius: 1em;
+    margin: 0;
+    position: absolute;
+    z-index: 100;
+    transform: translate(-50%, 1em);
+    display: none;
+}
+.open{
+    display:block 
+}
+
+
+#formMarkHomework::after{
+    content: '';
+    position: absolute;
+    border: 0.8em solid transparent;
+    border-bottom: 1em solid #6cb94d;
+    top: -1.8em;
+    left: calc(50% - 0.8em);
+}
+#formMarkHomework p {
+    color: black;
+    text-align: center;
+    margin: 0;
+}
+#formMarkHomework > p{
+    padding-top: 1em;
+}
+.buttonChange{
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+}
+td.missed, td.homeWorkOk{
+    background-image: url('../image/cross.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.saveMark{
+    display: none;
+}
+input[name='mark'] {
+    border: solid;
+    margin: 0;
+    height: 2em;
+    width: 3em;
+    text-align: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+[name="comment"], textarea{
+    background: none;
+    border: solid white;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 5em;
+    color: white;
+    padding: 0.5em;
+    font-size: 1.2em;
+}
+.change{
+    background-color: #87ad21;
+}
+section.journal{
+    border: none;
+    padding-bottom: 1em;
+}
+main#journal > button {
+    font-size: 1em;
+    width: 30em;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
+}
+td.homeWorkOk{
+    background-image: url('../image/ok.png');
+}
+
+

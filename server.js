@@ -1,89 +1,84 @@
-var express = require('express');
-var app = express();
-var fs = require('fs');
-var bodyParser = require('body-parser');
-var session = require("client-sessions");
+const express = require('express'),
+  action = require('./actionServer'),
+  app = express(),
+  bodyParser = require('body-parser'),
+  favicon = require('serve-favicon'),
+  cookieParser = require('cookie-parser');
 
-fs.readFile(__dirname +'/bd/user.json', function (err, data) {
-if (err) {
-return console.error(err);
-}
-date1 = JSON.parse(data);
-console.log('Asynchronous read:' + date1);
-});
-
-app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.use('/public', express.static('public'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 
-app.use(session({
-  cookieName: 'mySession',
-  secret: '0GBlJZ9EKBt2Zbi2flRPvztczCewBxXK'
-}));
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html')
+});
+
+app.get('/registration', (req, res) => {
+  res.sendFile(__dirname + '/public/registration.html')
+});
+
+app.get('/user/:id', (req, res) => {
+  action.userPage(req, res);
+});
+
+ app.get('/add-group', (req, res) => {
+  res.sendFile(__dirname + '/public/add-groupe.html')
+ });
+
+app.get('/group/:id', (req, res) => {
+  action.groupPage(req, res);
+});
+
+app.get('/journal/:id', (req, res) => {
+  action.journalPage(req, res);
+});
+app.get('/diary/:id', (req, res) => {
+  action.diary(req, res);
+});
+
+app.get('/logout', function(req, res){
+  res.cookie('dataUser', '', {expires: new Date(0)});
+  res.redirect('/');
+});
+ app.get('/add-teacher', (req, res) => {
+  res.sendFile(__dirname + '/public/add-teacher.html')
+ })
+
+ app.get('/add-subject', (req, res) => {
+   action.addSubject(req, res);
+ })
+
+ app.get('/timetable', (req, res) => {
+  action.timetablePage(req, res);
+})
+app.post('/lessons', (req, res) => {
+  action.addLesson(req, res);
+})
+app.post('/registration', function (req, res) {
+  action.registration(req, res);  
+});
 
 app.post('/login', function (req,res) {
-  var foundUser;
+  action.login(req, res);
+});
 
-  fs.readFile(__dirname + '/bd/user.json', function (err, date) {
-    var users = JSON.parse(date);
-    for (var i =0; i < users.length; i++){
-      var user = user[i];
-      if (user.userEmail === req.body.userEmail && user.userPassword === req.body.userPassword) {
-        foundUser = user;
-        break
-      }
-    }
-  });
-  if (foundUser !== undefined) {
-      req.session.username = `${foundUser.userName} ${foundUser.userSurname}`;
-      consol.log('Login', req.session.username)
-  } else {
-    console.log('login failed');
-    res.send('login error')
-  }
+app.post('/user', (req, res) => {
+  action.resUser(req, res)
+});
 
+app.post('/group', (req, res) => {
+  action.addGroup(req, res);
+});
+
+app.post('/teacher', (req, res) => {
+  action.addTeacher(req, res)
 })
 
 
-app.post('/', function (req, res) {
-  console.log('body:', req.body);
-
-  var dateReq = req.body;
-  dateReq.statue = 'admin';
-  fs.readFile(__dirname + '/bd/user.json', function (err, date) {
-    if (err) {
-      return console.log(err)
-    } else {
-      var usersJson = JSON.parse(date);
-      var equal = true;
-
-      usersJson.forEach(elem => {
-        if (elem.userEmail === dateReq.userEmail) {
-          equal = false;
-        }
-      });
-
-      if (!equal) {
-        res.send('no');
-      } else {
-
-        usersJson.push(dateReq);
-        var usersNew = JSON.stringify(usersJson);
-        fs.writeFile(__dirname + '/bd/user.json', usersNew, 'utf8', (err) => {
-          if (err) throw err;
-          console.log('The file has been saved!');
-        });
-        res.send('yes');
-
-      }
-    }
-  });
-});
-
-
-
-
-
-
-app.listen(8000, function () {
-  console.log('Exampl app listening on port 8000!');
-});;
+app.listen(port);
+// app.listen(port, ip);
+console.log('Server running on ', ip, port)

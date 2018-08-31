@@ -1,0 +1,94 @@
+section {
+    padding: 0 0 1.5em 2em;
+}
+main#addGroup header>h1, main#teacher  header>h1{
+    text-align: center;
+    padding-top: 1em;
+}
+main#addGroup>div {
+    overflow: auto;
+    height: 93.5%;
+    padding: 0 1em;
+}
+input{
+    width: 10em;
+    margin: 0 1em;
+    font-family: "OpenSansRegular";
+    color: white;
+    border:1px solid;
+    background: none;
+    border: 0.4em solid transparent;
+    border-image-repeat: repeat;
+    border-image-slice: 50 0;
+    border-image-width: 0 0 3;
+    border-image-outset: 0.5;
+    border-image-source: url(../image/border3.png);
+    outline: none;
+    font-size: 1em;
+}
+input[name="userEmail"]{
+    width: 15em;
+}
+input::placeholder{
+    text-indent: 1em;
+    letter-spacing: 0.5em;
+}
+#fullName{
+    border: none;
+}
+button {
+    background-image: url(../image/button_background.png);
+    background-color: transparent;
+    background-size: 100% 100%;
+    cursor: pointer;
+    height: 2em;
+    font-style: italic;
+    font-weight: bold;
+    outline: none;
+    width: 18em;
+    border: none;
+    color: #154336;
+    margin: 0.5em 0 0 0;
+}
+button:hover{
+    transform: scale(1.05)
+}
+
+form, section header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+section header{
+    padding: 0 0 1em 0;
+}
+
+section header, section:not(:last-child), section#newTeacher{
+    border: 0.4em solid transparent;
+    border-image-source: url(../image/border2.png);
+    border-image-repeat: repeat;
+    border-image-slice: 50 0;
+    border-image-width: 0 0 2; 
+}
+th, td{
+    width: 10em;
+}
+table button{
+    width: 7em;
+    font-size: 0.7em;
+}
+.change{
+    background-color: rgba(255,255,255,0.4);
+}
+caption {
+    font-size: 2em;
+    color: #bee426;
+}
+
+#result p span {
+    padding-left: 5em;
+}
+
+#result p a:hover{
+    color: #87ad21;
+}

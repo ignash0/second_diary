@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>student journal on-line</title>
+        <link rel="import" href="./customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="./style/addGroup.css">
+        <link rel="import" href="./customeEements/modalWindow/modal-window.html">
+        
+        <link rel="stylesheet"  href="./style/timetable.css">
+        <link rel="stylesheet"  href="./style/base.css">
+        <link rel="stylesheet"  href="./style/user.css">
+    </head>
+    <body>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
+        <main id="timetable">
+            <header>
+                <h1>Рассписание занятий.</h1>
+            </header>
+            <section>
+                <h1>Группа</h1>
+                <div class="timetable">
+                    <div class="firstHalfWeek">
+                        <div class="day">
+                            <table id="monday">
+                                <colgroup>
+                                    <col style="width:10%">
+                                    <col style="width:30%">
+                                    <col style="width:40%">
+                                    <col style="width:20%">
+                                </colgroup> 
+                                <thead>
+                                    <tr>
+                                        <th colspan="4">Понедельник</th>
+                                    </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Предмет</th>
+                                        <th>Домашнее задание</th>
+                                        <th>Отметка</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="lesson-1">
+                                        <td>1</td>
+                                        <td class="subject"></td>
+                                        <td class="homeWork"></td>
+                                        <td class="mark"></td>
+                                    </tr>
+                                    <tr class="lesson-2">
+                                        <td>2</td>
+                                        <td class="subject"></td>
+                                        <td class="homeWork"></td>
+                                        <td class="mark"></td>
+                                    </tr>
+                                    <tr class="lesson-3">
+                                        <td>3</td>
+                                        <td class="subject"></td>
+                                        <td class="homeWork"></td>
+                                        <td class="mark"></td>
+                                    </tr>
+                                    <tr class="lesson-4">
+                                        <td>4</td>
+                                        <td class="subject"></td>
+                                        <td class="homeWork"></td>
+                                        <td class="mark"></td>
+                                    </tr>
+                                    <tr class="lesson-5">
+                                        <td>5</td>
+                                        <td class="subject"></td>
+                                        <td class="homeWork"></td>
+                                        <td class="mark"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="day">
+                            <table id="tuesday">
+                                <colgroup>
+                                    <col style="width:10%">
+                                    <col style="width:45%">
+                                    <col style="width:45%">
+                                </colgroup> 
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Вторник</th>
+                                    </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Время</th>
+                                        <th>Группа</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="lesson-1">
+                                        <td>1</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject" >
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-2">
+                                        <td>2</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-3">
+                                        <td>3</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-4">
+                                        <td>4</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-5">
+                                        <td>5</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>                                </tbody>
+                            </table>
+                        </div>
+                        <div class="day">
+                            <table id="wednesday">
+                                <colgroup>
+                                    <col style="width:10%">
+                                    <col style="width:45%">
+                                    <col style="width:45%">
+                                </colgroup> 
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Среда</th>
+                                    </tr>
+                                    <tr>
+                                        <th>№</th>
+                                        <th>Время</th>
+                                        <th>Группа</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="lesson-1">
+                                        <td>1</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject" >
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-2">
+                                        <td>2</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-3">
+                                        <td>3</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-4">
+                                        <td>4</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>
+                                    <tr class="lesson-5">
+                                        <td>5</td>
+                                        <td class="time"><input type="text"></td>
+                                        <td class="group">
+                                            <input list="subject">
+                                            <datalist class="subject">
+                                            </datalist>
+                                        </td>
+                                    </tr>                                </tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="secondHalfWeek">
+                        <div class="day">
+                                <table id="thursday">
+                                    <colgroup>
+                                        <col style="width:10%">
+                                        <col style="width:45%">
+                                        <col style="width:45%">
+                                    </colgroup> 
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">Четверг</th>
+                                        </tr>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Время</th>
+                                            <th>Группа</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="lesson-1">
+                                            <td>1</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject" >
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-2">
+                                            <td>2</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-3">
+                                            <td>3</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-4">
+                                            <td>4</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-5">
+                                            <td>5</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>                                </tbody>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <div class="day">
+                                <table id="friday">
+                                    <colgroup>
+                                        <col style="width:10%">
+                                        <col style="width:45%">
+                                        <col style="width:45%">
+                                    </colgroup> 
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">Пятница</th>
+                                        </tr>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Время</th>
+                                            <th>Группа</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="lesson-1">
+                                            <td>1</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject" >
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-2">
+                                            <td>2</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-3">
+                                            <td>3</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-4">
+                                            <td>4</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-5">
+                                            <td>5</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>                                </tbody>
+                                    </tbody>
+                                </table>
+                        </div>
+                        <div class="day">
+                                <table id="saturday">
+                                    <colgroup>
+                                        <col style="width:10%">
+                                        <col style="width:45%">
+                                        <col style="width:45%">
+                                    </colgroup> 
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3">Суббота</th>
+                                        </tr>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Время</th>
+                                            <th>Группа</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="lesson-1">
+                                            <td>1</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject" >
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-2">
+                                            <td>2</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-3">
+                                            <td>3</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-4">
+                                            <td>4</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>
+                                        <tr class="lesson-5">
+                                            <td>5</td>
+                                            <td class="time"><input type="text"></td>
+                                            <td class="group">
+                                                <input list="subject">
+                                                <datalist class="subject">
+                                                </datalist>
+                                            </td>
+                                        </tr>                                </tbody>
+                                    </tbody>
+                                </table>
+                        </div>
+                    </div>                    
+                </div>
+                <button>Сохранить рассписание</button>
+            </section>
+
+        </main>
+        <!-- <script src="./script/journal.js"></script> -->
+    </body>
+    <footer>
+
+    </footer>
+</html>

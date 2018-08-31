@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>student journal on-line</title>
         <meta charset="utf-8">
-        <link rel="stylesheet"  href="./style/base.css">
-        <link rel="stylesheet"  href="./style/registration.css">
+        <title>student journal on-line</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+        <link rel="manifest" href="/public/site.webmanifest">
+        <link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#8ddbb1">
+        
+        <link rel="import" href="/public/customeEements/page-header/page-header.html">
+        <link rel="stylesheet"  href="/public/style/base.css">
+        <link rel="stylesheet"  href="/public/style/registration.css">
     </head>
     <body>
+        <modal-window></modal-window>
         <div class="modalWindowRegistration">
             <div class="serverMesseg">
                 <h1 id='response'></h1>
@@ -18,21 +29,10 @@
             </div>
         </div>
          
-        <header>
-            <menu>
-                <ul>
-                    <li><a href="">ВХОД</a></li>
-                        <li><a href="./registration
-                            .html">Регистрация</a></li>
-                    </ul>
-            </menu>
-            <a href="./index.html">
-                <figure>
-                    <img src="./image/student.png" alt="student">
-                        <figcaption>On-line</figcaption>
-                </figure>
-            </a>
-        </header>
+        <page-header>
+                <span slot="first-li"></span> 
+                <span slot="last-li"></span>
+        </page-header>
         <main class="mainRegistration
         ">
             <h1>Регистрация необходима для новых кураторов учебной группы</h1>
@@ -57,33 +57,32 @@
                 <label for="surname">
                         <span>Фамилия :</span> 
                         <input type="text" name="userSurname" id="surname">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
                 
                 <label for="name">
                      <span>Имя :</span> 
                     <input type="text" name="userName" id="name">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
                 
                 <label for="fatherName">
                     <span>Отчество :</span>
                     <input type="text" name="userFatherName" id="fatherName">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
 
                 <label for="dateBirth">
                     <span>Дата рождения :</span>
                     <input type="text" name="userDateBirth" id="dateBirth">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
 
                 <label for="email">
                     <span>e-mail :</span>
                     <input type="text" name="userEmail" id="email">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
-
 
                 <label for="placeWork">
                     <span>Место работы :</span>
@@ -100,16 +99,25 @@
                 <label for="password">
                     <span>Пароль :</span>
                     <input type="password" name="userPassword" id="password">
-                </label><span id="error"></span>
+                </label>
                 <p></p>
 
-                <input type="reset" id="registrationButton" value="Зарегистрироваться">
+                <input  id="registrationButton" value="Зарегистрироваться">
             </form>
         </main>
+        <script type="module" src="/public/script/registration.js"></script>
     </body>
     <footer>
-
+        <h1>Контакты</h1>
+        <address >
+          <span class="fa fa-map-marker" aria-hidden="true"></span>
+          <span>Беларусь г.Гродно</span><br/>
+          <span class="fa fa-phone-square" aria-hidden="true"></span>
+          <span>Телефон +375 (29) 570-23-16</span><br/>
+          <span class="fa fa-envelope" aria-hidden="true"></span>
+          <a href="mailto:https://www.maksimignashevich@gmail.com">maksimignashevich@gmail.com</a><br>
+        </address><br/>
+        <p><small>2018 Hrodno</small></p>
     </footer>
-    <script type="text/javascript" src="./script/main.js"></script>
 
 </html>

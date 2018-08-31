@@ -1,0 +1,66 @@
+@font-face {
+	font-family: 'Segoe Print';
+	src: url('SegoePrint.eot');
+	src: local('Segoe Print'), local('SegoePrint'),
+		url('SegoePrint.eot?#iefix') format('embedded-opentype'),
+		url('SegoePrint.woff') format('woff'),
+		url('SegoePrint.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+main.user, main#addGroup, main#teacher, main#journal, main#timetable {
+    background: url('../image/blackboard.png') no-repeat;
+    background-size: 100% 100%;
+    width:90%;
+    margin: 0 auto;
+
+}
+
+main.user header img{
+    height: 70%;
+    padding: 2em;
+    width: auto;
+}
+main.user header {
+    margin: 0 1em;
+    height: 50%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+
+main.user header h1 {
+    font-size: 1.5em;
+}
+main.user header .information {
+    padding: 2em 1em 2em 0;
+}
+.information ul{
+    padding: 1em 0;
+}
+
+.information li{
+    padding: 0.2em;
+}
+.information li:first-child{
+    padding-bottom: 1em;
+}
+.information a:hover{
+    color:#87ad21;
+}
+
+main.user div.options{
+    font-family: 'Segoe Print';
+    color:black;
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.options a:hover{
+    text-decoration-line: underline;
+}
+
+span[id^="error"] {
+
+    color: #87ad21;}

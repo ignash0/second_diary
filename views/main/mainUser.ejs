@@ -1,0 +1,22 @@
+        <main class="user">
+            <header>
+                <div class="information">
+                    <h1><%= name %></h1>
+                    <ul>
+                        <% info.forEach( item => { %>
+                        <% if (typeof item === 'object'){ %>
+                            <li><a href =<%= item.link %>><%= item.name %></a></li>
+                        <%} else { %>
+                        <li><%= item %></li>
+                        <% }}); %>
+                    </ul>
+                </div>
+                <img src="/public/image/boy.png" alt="image_user">
+            </header>
+            <div class="options">
+            <% if (stickers) {%>
+            <% stickers.forEach(item => { %>
+                <%- include('sticker/board-sticker.ejs', {name:item.name, caption:item.caption, textLink:item.textLink, hrefLink:item.hrefLink}) %>
+            <%})} %>
+            </div>
+        </main>
