@@ -1,42 +1,30 @@
 <main id="diary">
     <div id="">
-        <% teachers.forEach(item => { %>
-        <section data-id-teacher=<%= item.id %>>
-            <h1>Дневник учащегося группы № <%= item.group %></h1>
-            <p><%= item.name %></p>
+        <h1>Дневник учащегося группы </h1>
+        <p><%= name %></p>
+        <div class='slider'>
+        <div id="left"></div>
+        <div class="container">
+        <% learningWeeks.forEach(weekLearning => { %>
+        <section >
+            <p>Учебная неделя </p>
+            <p><%= weekLearning.start %> <%= weekLearning.end %></p>
             <div class="teacherWeek">
                     <% let firstHalfWeek = [{'en': "monday",'ru': 'Понедельник'},{'en':"tuesday", 'ru': 'Вторник'},{'en':"wednesday", 'ru': 'Среда'}],
-                         secondHalfWeek  = [{'en': "thursday",'ru': 'Четверг'},{'en':"friday", 'ru': 'Пятница'},{'en':"saturday", 'ru': 'Суббота'}]; %>
+                        secondHalfWeek  = [{'en': "thursday",'ru': 'Четверг'},{'en':"friday", 'ru': 'Пятница'},{'en':"saturday", 'ru': 'Суббота'}];%>
+
                     <% function week(partWeek) { %>
                         <% partWeek.forEach(day => { %>
-                            <% let time = {'lesson-1': '', 'lesson-2': '', 'lesson-3': '', 'lesson-4': '', 'lesson-5': ''}, 
-                                 group = {'lesson-1': '', 'lesson-2': '', 'lesson-3': '', 'lesson-4': '', 'lesson-5': ''}; 
-                             item.lesson.forEach(lesson => {
-                                if (lesson.day === day.en) { 
-                                     switch (lesson.numberLesson) {
-                                         case 'lesson-1': 
-                                         time['lesson-1'] = lesson.time;
-                                         group['lesson-1'] = lesson.group;
-                                         break;
-                                     case 'lesson-2':
-                                         time['lesson-2'] = lesson.time; 
-                                         group['lesson-2'] = lesson.group;
-                                         break;
-                                     case 'lesson-3':
-                                         time['lesson-3'] = lesson.time; 
-                                         group['lesson-3'] = lesson.group; 
-                                         break;
-                                     case 'lesson-4':
-                                         time['lesson-4'] = lesson.time;
-                                         group['lesson-4'] = lesson.group; 
-                                         break; 
-                                     case 'lesson-5': 
-                                         time['lesson-5'] = lesson.time; 
-                                         group['lesson-5'] = lesson.group; 
-                                         break; 
-                                    }
-                                }
-                            }) %>
+                            <% let subject = {'lesson-1': '', 'lesson-2': '', 'lesson-3': '', 'lesson-4': '', 'lesson-5': ''}, 
+                                 homeWork = {'lesson-1': '', 'lesson-2': '', 'lesson-3': '', 'lesson-4': '', 'lesson-5': ''},
+                                 mark = {'lesson-1': '', 'lesson-2': '', 'lesson-3': '', 'lesson-4': '', 'lesson-5': ''};
+                                if (weekLearning.lessonWeek[day.en]) {
+                                    weekLearning.lessonWeek[day.en].forEach(lesson => {
+                                        subject[lesson.numberLesson] = lesson.subject;
+                                        homeWork[lesson.numberLesson] = lesson.homework;
+                                        mark[lesson.numberLesson] = lesson.mark;
+                                    })
+                                }%>
                             <div class="day">
                                 <table id=<%= day.en %>>
                                     <colgroup>
@@ -59,37 +47,37 @@
                                     <tbody>
                                         <tr class="lesson-1">
                                             <td>1</td>
-                                            <td class="subject"></td>
-                                            <td class="homeWork"></td>
-                                            <td class="mark"></td>
+                                            <td class="subject"><%= subject['lesson-1'] %></td>
+                                            <td class="homeWork"><%= homeWork['lesson-1'] %></td>
+                                            <td class="mark"><%= mark['lesson-1'] %></td>
                                             </td>
                                         </tr>
                                         <tr class="lesson-2">
                                             <td>2</td>
-                                            <td class="subject"></td>
-                                            <td class="homeWork"></td>
-                                            <td class="mark"></td>
+                                            <td class="subject"><%= subject['lesson-2'] %></td>
+                                            <td class="homeWork"><%= homeWork['lesson-2'] %></td>
+                                            <td class="mark"><%= mark['lesson-2'] %></td>
                                             </td>
                                         </tr>
                                         <tr class="lesson-3">
                                             <td>3</td>
-                                            <td class="subject"></td>
-                                            <td class="homeWork"></td>
-                                            <td class="mark"></td>
+                                            <td class="subject"><%= subject['lesson-3'] %></td>
+                                            <td class="homeWork"><%= homeWork['lesson-3'] %></td>
+                                            <td class="mark"><%= mark['lesson-3'] %></td>
                                             </td>
                                         </tr>
                                         <tr class="lesson-4">
                                             <td>4</td>
-                                            <td class="subject"></td>
-                                            <td class="homeWork"></td>
-                                            <td class="mark"></td>
+                                            <td class="subject"><%= subject['lesson-4'] %></td>
+                                            <td class="homeWork"><%= homeWork['lesson-4'] %></td>
+                                            <td class="mark"><%= mark['lesson-4'] %></td>
                                             </td>
                                         </tr>
                                         <tr class="lesson-5">
                                             <td>5</td>
-                                            <td class="subject"></td>
-                                            <td class="homeWork"></td>
-                                            <td class="mark"></td>
+                                            <td class="subject"><%= subject['lesson-5'] %></td>
+                                            <td class="homeWork"><%= homeWork['lesson-5'] %></td>
+                                            <td class="mark"><%= mark['lesson-5'] %></td>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -106,5 +94,8 @@
             </div>
         </section>
         <% }) %>
+       </div>
+       <div id="right"></div> 
+       </div>
     </div>
 </main>

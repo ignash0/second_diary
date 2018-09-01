@@ -78,7 +78,7 @@ table thead{
 }
 
 
-#formMarkHomework::after{
+#formMarkHomework::after, #comment::after{
     content: '';
     position: absolute;
     border: 0.8em solid transparent;
@@ -146,5 +146,23 @@ main#journal > button {
 td.homeWorkOk{
     background-image: url('../image/ok.png');
 }
+a:hover{
+    color:#87ad21
+}
+#comment{
+    display: none;
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
+    background-color: #6cb94d;
+    width: 14em;
+    height: auto;
+    border-radius: 1em;
+    margin: 0;
+    position: absolute;
+    z-index: 100;
+    transform: translate(-50%, 1em);
+}
+#comment p{
+    text-align: center
 
+}
 

@@ -4,7 +4,6 @@ class Server {
   constructor() {
     this.fs = require('fs');
   }
-
   userPage(req, res) {
     this.readFileUserGroup((users, groupDate) => {
       this.readFile('/bd/journals.json', journals => {
@@ -63,6 +62,11 @@ class Server {
                 };
                 info.push(curator);
                 break;
+            case 'userPassword':
+                if (foundUser.curator === req.cookies.dataUser.id ) {
+                  info.push(`Пароль для входа: ${foundUser[key]}`);
+                }
+                break;
           }
         }
         const stickers = [];
@@ -101,17 +105,12 @@ class Server {
                 stickerTeacher.textLink = 'Добавить_преподавателя:';
                 stickerTeacher.hrefLink = '/add-teacher';
               };
-  
-              // const stickerTimetable = {};
-              // stickerTimetable.name = [{
-              //   'name': `Расписание преподавателей`,
-              //   'link': `/timetable`
-              // }];
-              // stickerTimetable.caption = 'Расписание';
-  
+   
               stickers.push(stickerTeacher);
               stickers.push(stickerGroup);
-              stickers.push(this.stickerTimetable());
+              if (foundUser.id === req.cookies.dataUser.id) {
+                stickers.push(this.stickerTimetable());
+              }
   
               break;
   
@@ -134,7 +133,7 @@ class Server {
               const stickerDiary = {};
               stickerDiary.name = [{
                 'name': `Дневник`,
-                'link': `/diary/foundUser.id`
+                'link': `/diary/${foundUser.id}`
               }];
               stickerDiary.caption = 'Дневник';
               stickers.push(stickerDiary);
@@ -145,8 +144,6 @@ class Server {
               this.stickerJournals(foundUser.id);
               stickers.push(this.stickerJournal);
               break;  
-        // 
-  
         }
         res.render('user', {main: 'user', name:`${foundUser.userSurname} ${foundUser.userName}  ${foundUser.userFatherName}`, info: info, stickers:stickers})
       })
@@ -180,7 +177,6 @@ class Server {
     })
     return this.stickerJournal
   }
-
   groupPage(req, res) {
     this.readFileUserGroup((users, groupDate) => {
       this.readFile('/bd/journals.json', journals => {
@@ -225,16 +221,27 @@ class Server {
         });
   
         const stickerJournals = {};
-              let journalsGroup = journals.filter(item => item.nameGroup === foundGroup.nameGroup ),
-                journalsSubject = journalsGroup.map(journal => {
-                  let result = {};
-                  result.name = journal.subject ;
-                  result.link = `/journal/${journal.id}`;
-                  return result;
-                });
-              stickerJournals.name = journalsSubject;
-              stickerJournals.caption = 'Журналы:';
-                stickers.push(stickerJournals);
+        let journalsGroup = journals.filter(item => item.nameGroup === foundGroup.nameGroup ),
+          journalsSubject = journalsGroup.map(journal => {
+            let result = {};
+            result.name = journal.subject ;
+            result.link = `/journal/${journal.id}`;
+            return result;
+          });
+        stickerJournals.name = journalsSubject;
+        stickerJournals.caption = 'Журналы:';
+        stickers.push(stickerJournals);
+
+        // if (req.cookies.dataUser.status === 'curator') {
+        //   const stickerListPassword = {};
+        //   stickerListPassword.name = [{
+        //     'name': `Список паролей учащихся`,
+        //     'link': `/listPassword/${foundGroup.id}`
+        //   }];
+        //   stickerListPassword.caption = 'Пароли';
+        //   stickers.push(stickerListPassword);
+        // }
+
         res.render('user', {main: 'user', name:`Группа №${foundGroup.nameGroup}`, info: info,    stickers:stickers})
       })
     })  
@@ -243,74 +250,89 @@ class Server {
     this.readFile('/bd/journals.json', journals => {
       this.readFileUserGroup((users, groupDate) => {
         this.readFile('/bd/lessons.json', lessons => {
-          let foundJournal;
-          for (let i = 0; i < journals.length; i++) {
-            if (journals[i].id === req.params.id) {
-              foundJournal = journals[i];
-              break;
-            }
-          };
-          let  teacherName;
-          for (let i = 0; i < users.length; i++) {
-            if (users[i].id === foundJournal.teacherId) {
-              teacherName = `${users[i].userSurname} ${users[i].userName}  ${users[i].userFatherName}`;
-              break;
-            }
-          };
-          const journalData ={
-              'groupName': foundJournal.nameGroup,
-              'subjectName': foundJournal.subject,
-              'teacherName': teacherName
-            };
-  
-          let journalGroup = groupDate.filter(item => item.nameGroup === foundJournal.nameGroup);
-          let groupStudentsId = journalGroup[0].students.map(item => item);
-          let listStudents = groupStudentsId.map(item => {
-            let result = {};
-            for (let i = 0; i < users.length; i++) {
-              if(users[i].id === item){
-                result.name = `${users[i].userSurname} ${users[i].userName}  ${users[i].userFatherName}`;
-                result.id = users[i].id;
-                break;
-              }
-            }
-            return result;
-          })
-          let dateStart = new Date(journalGroup[0].learningFrom),
-            dateEnd = new Date (journalGroup[0].learningTo),
-            daysLessons =[];
-          
-          lessons.forEach(item => {
-            if(item.group === foundJournal.nameGroup && 
-              item.teacher === foundJournal.teacherId) {
-                daysLessons.push(item.day)
-              }
-            })
-            
-          const journalDate = [];
-          while (Date.parse(dateStart) !== Date.parse(dateEnd)) {
-            
-            let startDay = dateStart.toLocaleString('en-US', {weekday: 'long'});
-            startDay = startDay.replace(startDay[0], startDay[0].toLowerCase());
-            
-            daysLessons.forEach(day => {
-              if(startDay === day){
-                dateStart.getMonth()
-                let dayRu = ['Вс','Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-                let month = ['Января','Феварля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ]
-                let result = {
-                  'day':dayRu[dateStart.getDay()],
-                  'month': month[dateStart.getMonth()],   
-                  'date': dateStart.getDate(),
-                  'year': dateStart.getFullYear()
+          this.readFile('/bd/mark.json', marks => {
+            this.readFile('/bd/missed.json', missed => {
+              this.readFile('/bd/homework.json', homeworks => {
+                let foundJournal;
+                for (let i = 0; i < journals.length; i++) {
+                  if (journals[i].id === req.params.id) {
+                    foundJournal = journals[i];
+                    break;
                   }
-                  journalDate.push(result)
-              }
+                };
+                let  teacherName;
+                for (let i = 0; i < users.length; i++) {
+                  if (users[i].id === foundJournal.teacherId) {
+                    teacherName = `${users[i].userSurname} ${users[i].userName}  ${users[i].userFatherName}`;
+                    break;
+                  }
+                };
+                const journalData ={
+                    'groupName': foundJournal.nameGroup,
+                    'subjectName': foundJournal.subject,
+                    'teacherName': teacherName,
+                    'teacherId': foundJournal.teacherId,
+                    'journalId':foundJournal.id
+                  };
+        
+                let journalGroup = groupDate.filter(item => item.nameGroup === foundJournal.nameGroup);
+                let groupStudentsId = journalGroup[0].students.map(item => item);
+                let listStudents = groupStudentsId.map(item => {
+                  let result = {};
+                  for (let i = 0; i < users.length; i++) {
+                    if(users[i].id === item){
+                      result.name = `${users[i].userSurname} ${users[i].userName}  ${users[i].userFatherName}`;
+                      result.id = users[i].id;
+                      break;
+                    }
+                  }
+                  return result;
+                })
+                let dateStart = new Date(journalGroup[0].learningFrom),
+                  dateEnd = new Date (journalGroup[0].learningTo),
+                  daysLessons =[];
+                
+                lessons.forEach(item => {
+                  if(item.group === foundJournal.nameGroup && 
+                    item.teacher === foundJournal.teacherId) {
+                      daysLessons.push(item.day)
+                    }
+                  })
+                  
+                const journalDate = [];
+                while (Date.parse(dateStart) !== Date.parse(dateEnd)) {
+                  
+                  let startDay = dateStart.toLocaleString('en-US', {weekday: 'long'});
+                  startDay = startDay.replace(startDay[0], startDay[0].toLowerCase());
+                  
+                  daysLessons.forEach(day => {
+                    if(startDay === day){
+                      dateStart.getMonth()
+                      let dayRu = ['Вс','Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+                      let month = ['Января','Феварля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ]
+                      let result = {
+                        'day':dayRu[dateStart.getDay()],
+                        'month': month[dateStart.getMonth()],   
+                        'date': dateStart.getDate(),
+                        'year': dateStart.getFullYear()
+                        }
+                        journalDate.push(result)
+                    }
+                  })
+                  dateStart.setDate(dateStart.getDate() + 1);
+                }
+                let button = false;
+                if( req.cookies.dataUser.status === 'teacher') {
+                  button = true;
+                }
+                marks = marks.filter(item => item.journalId === foundJournal.id);
+                missed = missed.filter(item => item.journalId === foundJournal.id);
+                homeworks = homeworks.filter(item => item.journalId === foundJournal.id);
+                res.render('user', {main: 'journal', journalData: journalData, 
+                listStudents: listStudents, button: button, journalDate: journalDate, marks: marks, missed: missed, homeworks: homeworks})
+              })
             })
-            dateStart.setDate(dateStart.getDate() + 1);
-          }
-          res.render('user', {main: 'journal', journalData: journalData, 
-          listStudents: listStudents, journalDate: journalDate})
+          })
         })
       })
     })
@@ -329,7 +351,7 @@ class Server {
             case 'student':
               teachers = [];
               let group = groupDate.filter(item => item.nameGroup === req.cookies.dataUser.nameGroup);
-              let teachersId = group.subject.map(item => item.teacherId);
+              let teachersId = group[0].subject.map(item => item.teacherId);
               teachers = teachersId.map(item => users.filter(user => user.id === item)[0] )
               break;
             case 'teacher':
@@ -366,6 +388,136 @@ class Server {
         }
       });
     })
+  }
+  diary(req, res) {
+    this.readFile('/bd/user.json',users => {
+      this.readFile('/bd/mark.json', marks => {
+        this.readFile('/bd/homework.json', homeworks => {
+          this.readFile('/bd/lessons.json', lessons => {
+            this.readFile('/bd/journals.json', journal => {
+              
+              let foundStudent;
+              for (let i =0; i < users.length; i++){
+                if (users[i].id === req.params.id ) {
+                  foundStudent = users[i];
+                  break
+                }
+              };
+              let name = `${foundStudent.userSurname} ${foundStudent.userName} ${foundStudent.userFatherName}`;
+              
+              marks = marks.filter(mark => mark.student === foundStudent.id);
+              lessons = lessons.filter(lesson => lesson.group === foundStudent.nameGroup);
+
+              
+              let learningWeeks = this.getlearningWeek(foundStudent.learningFrom, foundStudent.learningTo);
+              learningWeeks.map(week => {
+                const lessonWeek = {};
+                let startWeek = new Date(week.startParse),
+                  endWeek = new Date(week.endParse),
+                  dayWeek = ["Sunday", "monday","tuesday","wednesday","thursday","friday","saturday"];
+                  let month = ['Января','Феварля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ];
+
+                while (Date.parse(startWeek) <= Date.parse(endWeek)) {
+                  let day = dayWeek[startWeek.getDay()];
+                  let dayNum = `${startWeek.getDate()}-${month[startWeek.getMonth()]}-${startWeek.getFullYear()}`
+
+                  let homeworkDay = homeworks.filter(homework => homework.date === dayNum);
+                  let marksDay = marks.filter(mark => mark.date === dayNum);
+                  let lessonsDay = lessons.filter(lesson => lesson.day === day);
+                  
+                  lessonWeek[day] = [];
+                  if (lessonsDay.length !== 0){
+                    lessonsDay.forEach(lessonday => {
+                      let resLesson ={};
+                      resLesson.subject = lessonday.subject;
+                      resLesson.numberLesson = lessonday.numberLesson;
+                      resLesson.day = day;
+
+                      if (homeworkDay.length !== 0) {
+                        homeworkDay.forEach(homework => {
+                          if(homework.teacher === lessonday.teacher) {
+                            resLesson.homework = homework.value;
+                          } else {
+                            resLesson.homework = '';
+                          }
+                        })
+                      } else {
+                        resLesson.homework = '';
+                      }
+
+                      if (marksDay.length !== 0) {
+                        marksDay.forEach(mark => {
+                          if (mark.teacher === lessonday.teacher) {
+                            resLesson.mark = mark.mark;
+                            resLesson.commentMark = mark.comment;
+                          }
+                        })
+                      } else {
+                        resLesson.mark = '';
+                      }
+                      lessonWeek[day].push(resLesson)
+                    })
+                  }
+                  startWeek.setDate(startWeek.getDate() + 1);
+                }
+                return week.lessonWeek = lessonWeek;
+              })
+              res.render('user', {main: 'diary',name: name, learningWeeks:learningWeeks})
+            })
+          })
+        })
+      })
+    })
+  }
+  getlearningWeek(learningFrom, learningTo) {
+    let dateStart = new Date(learningFrom),
+    dateEnd = new Date (learningTo),
+    learningWeek = [],
+      num = 1;
+    
+    let month = ['Января','Феварля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря' ];
+    if (dateStart.getDay() === 0){
+      let week = {};
+      week.number = 1;
+      dateStart.setDate(dateStart.getDate() + 1);
+      week.start = `${dateStart.getDate()}-${month[dateStart.getMonth()]}-${dateStart.getFullYear()}`;
+      week.startParse = Date.parse(dateStart);
+      dateStart.setDate(dateStart.getDate() + 5);
+      week.end = `${dateStart.getDate()}-${month[dateStart.getMonth()]}-${dateStart.getFullYear()}`;
+      week.endParse = Date.parse(dateStart);
+      learningWeek.push(week);
+    }
+    if (dateStart.getDay() > 1) {
+      let week = {};
+      week.number = 1;
+      dateStart.setDate(dateStart.getDate() - dateStart.getDay() + 1);
+      week.start = `${dateStart.getDate()}-${month[dateStart.getMonth()]}-${dateStart.getFullYear()}`;
+      week.startParse = Date.parse(dateStart);
+      dateStart.setDate(dateStart.getDate() + 5);
+      week.end = `${dateStart.getDate()}-${month[dateStart.getMonth()]}-${dateStart.getFullYear()}`;
+      week.endParse = Date.parse(dateStart);
+      learningWeek.push(week);
+    }
+    while (Date.parse(dateStart) <= Date.now() && Date.now() <= Date.parse(dateEnd)) {
+      let week = {};
+      if (dateStart.getDay() === 1) {
+        if (learningWeek.length === 1){
+          num ++;
+        }
+        week.number = num;
+        num++;
+        week.start = `${dateStart.getDate()}-${month[dateStart.getMonth()]}-${dateStart.getFullYear()}`;
+        week.startParse = Date.parse(dateStart);
+        let dateSutaday = dateStart;
+        dateSutaday.setDate(dateSutaday.getDate() + 5)
+        week.end = `${dateSutaday.getDate()}-${month[dateSutaday.getMonth()]}-${dateSutaday.getFullYear()}`;
+        week.endParse = Date.parse(dateSutaday);
+
+        learningWeek.push(week);
+      }
+      dateStart.setDate(dateStart.getDate() + 1);
+    }
+    return learningWeek;
   }
   addSubject(req, res) {
     this.readFileSubjectUser(resSubjectTeachers);
@@ -628,6 +780,34 @@ class Server {
         this.writeNewFile('/bd/lessons.json', JSON.stringify(lessons));
         res.send('ok');
       }
+    })
+  }
+  addMarksHomeworkMissed(req, res) {
+    this.readFile('/bd/mark.json', marks => {
+      this.readFile('/bd/missed.json', missed => {
+        this.readFile('/bd/homework.json', homeworks => {
+          const dataReq = req.body;
+          if (dataReq.marks) {
+            dataReq.marks.forEach(item => {
+              marks.push(item)
+              this.writeNewFile('/bd/mark.json', JSON.stringify(marks));
+            });
+          }
+          if( dataReq.missed){
+            dataReq.missed.forEach(item => {
+              missed.push(item)
+              this.writeNewFile('/bd/missed.json', JSON.stringify(missed));
+            });
+          }
+          if (dataReq.homework) {
+            dataReq.homework.forEach(item => {
+              homeworks.push(item)
+              this.writeNewFile('/bd/homework.json', JSON.stringify(homeworks));
+            });
+          }
+          res.send('Изменения в журнал сохранены')
+        })
+      })
     })
   }
   writeNewFile(url,data) {
