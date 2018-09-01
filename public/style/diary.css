@@ -1,0 +1,64 @@
+main#diary{
+    height: auto;
+}
+main#diary > div {
+    text-align: center;
+}
+p{
+    font-size: 1.5em;
+    margin: 0;
+}
+.teacherWeek{
+    height: 33em;
+    width: 45em;
+}
+.container{
+    display: flex;
+    
+    overflow: auto;
+    width: 70%;
+}
+.container section {
+    margin: 0 auto;
+    border: none;
+}
+.slider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#right{
+    background-image: url('../image/right.PNG');
+}
+#left{
+    background-image: url('../image/left.PNG');
+}
+#right, #left{
+    cursor: pointer;
+    width: 5em;
+    height: 5em;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+#right:hover,  #left:hover{
+    transform: scale(1.1)
+}
+#left:hover{
+    background-image: url('../image/left_hover.png');
+}
+#right:hover{
+    background-image: url('../image/right_hover.png');
+}
+.open{
+    width:100%;
+    left: 0;
+    transition: .5s ease;
+}
+.close{
+    right: 0;
+    width: 0;
+}
+
+

@@ -2,7 +2,6 @@ const express = require('express'),
   action = require('./actionServer'),
   app = express(),
   bodyParser = require('body-parser'),
-  favicon = require('serve-favicon'),
   cookieParser = require('cookie-parser');
 
 app.set('view engine', 'ejs');
@@ -40,6 +39,7 @@ app.get('/diary/:id', (req, res) => {
   action.diary(req, res);
 });
 
+
 app.get('/logout', function(req, res){
   res.cookie('dataUser', '', {expires: new Date(0)});
   res.redirect('/');
@@ -51,9 +51,12 @@ app.get('/logout', function(req, res){
  app.get('/add-subject', (req, res) => {
    action.addSubject(req, res);
  })
-
  app.get('/timetable', (req, res) => {
   action.timetablePage(req, res);
+})
+
+app.post('/addMarksHomeworkMissed', (req, res) => {
+  action.addMarksHomeworkMissed(req, res);
 })
 app.post('/lessons', (req, res) => {
   action.addLesson(req, res);

@@ -1,8 +1,8 @@
         <main id="journal">
             <header>
-                <h1>Группа № <%= journalData.groupName %></h1>
-                <p>Предмет: <%= journalData.subjectName %></p>
-                <p>Преподаватель: <%= journalData.teacherName %></p>
+                <h1 data-group=<%= journalData.groupName %>>Группа № <%= journalData.groupName %></h1>
+                <p data-journal-id=<%= journalData.journalId %>>Журнал по предмету:  <%= journalData.subjectName %></p>
+                <p data-techer-id =<%=  journalData.teacherId%>>Преподаватель:<a href='/user/<%= journalData.teacherId %>'> <%= journalData.teacherName %></a></p>
             </header>
             <section class="journal">
                 <table id="journalStudent">
@@ -23,12 +23,12 @@
                     </thead>
                     <tbody id="listStudents">
                         <% let num = 1;
-                           listStudents.forEach(student => { %>
+                           listStudents.forEach(student => {%> 
                                 <tr>
                                     <td><%= num %></td>
                                     <td data-id-student=<%= student.id %>><%= student.name %></td>
                                 </tr>
-                         <% num++}) %>
+                            <%num++}) %>
                          <tr>
                             <td colspan="2">Домашнее задание</td>
                          </tr>
@@ -58,17 +58,40 @@
                             <% listStudents.forEach(student => { %>
                                 <tr data-id-student=<%= student.id %>>
                                     <% journalDate.forEach(dayLesson => { 
-                                        let fullDate = `${dayLesson.date}-${dayLesson.month}-${dayLesson.year}` %>
-                                            <td data-mark-date=<%= fullDate %> title=<%= fullDate %>></td>
-                                            <td data-missed-date=<%= fullDate %> title=<%= fullDate %> ></td>
+                                        let valueMark = '',
+                                            classMissed = '',
+                                            commentMark = '';
+                                        let fullDate = `${dayLesson.date}-${dayLesson.month}-${dayLesson.year}`; 
+                                        marks.forEach(mark => {
+                                                if(student.id === mark.student && fullDate === mark.date) {
+                                                    valueMark = mark.value;
+                                                    commentMark = mark.comment;
+                                                };
+                                        })
+                                        missed.forEach(missed => {
+                                                if(student.id === missed.student && fullDate === missed.date) {
+                                                    classMissed = 'missed';
+                                                }
+                                        })%>
+                                            <td data-mark-date=<%= fullDate %> title=<%= fullDate %> <% if (commentMark) {%>data-comment=<%= commentMark %><%}%> ><%= valueMark %></td>
+                                            <td data-missed-date=<%= fullDate %>  title=<%= fullDate %> <% if (classMissed) {%> class=<%= classMissed %> <%}%>></td>
                                     <% }) %>
                                 </tr>
                             <% }) %>                            
                             <tr id="homeWork">
-                                <% journalDate.forEach(dayLesson => { 
-                                    let fullDate = `${dayLesson.date}-${dayLesson.month}-${dayLesson.year}` %>
-                                    <td colspan="2" data-homeWork-date=<%= fullDate %> title=<%= fullDate %>></td>
-                                <% }) %>  
+                                <% journalDate.forEach(dayLesson => {
+                                    let fullDate = `${dayLesson.date}-${dayLesson.month}-${dayLesson.year}`,
+                                        valueHomework = '',
+                                        classhomeWorkOk = '';
+                                    homeworks.forEach(homework => {
+                                        if (fullDate === homework.date) {
+                                            classhomeWorkOk = 'homeWorkOk';
+                                            valueHomework = homework.value;
+                                        }
+                                     %>
+                                    <% }) %>
+                                    <td colspan="2" data-homeWork-date=<%= fullDate %> <% if (valueHomework) {%> data-comment=<%= valueHomework %> <%}%> <% if (valueHomework) {%> class=<%= classhomeWorkOk %> <% }%> title=<%= fullDate %>></td>
+                                    <% }) %>  
                            </tr>
                         </tbody>
                     </table>
@@ -88,5 +111,7 @@
                     </tbody>
                 </table>
             </section>
+            <% if (button) { %>
             <button id="saveChange">Сохранить сделанные изменения</button>
+            <% } %>
         </main>

@@ -1,0 +1,1 @@
+http://second-diary-second-diary.193b.starter-ca-central-1.openshiftapps.com/

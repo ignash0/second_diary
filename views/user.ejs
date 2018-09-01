@@ -20,6 +20,10 @@
         <% if (main === 'timetable') { %>
             <link rel="stylesheet"  href="/public/style/timetable.css">
         <% }%>
+        <% if (main === 'diary') { %>
+            <link rel="stylesheet"  href="/public/style/timetable.css">
+            <link rel="stylesheet"  href="/public/style/diary.css">
+        <% }%>
         <link rel="stylesheet"  href="/public/style/base.css">
         <link rel="stylesheet"  href="/public/style/user.css">
         <% if (main === 'journal') { %>
@@ -41,6 +45,7 @@
                 <button id="cancel">Отмена</button>               
             </div>
         </div>
+        <div id='comment'><p></p></div>
 
     <% } %>
     <modal-window ></modal-window>
@@ -57,7 +62,10 @@
     <% if (main === 'journal') { %>
         <%- include('main/journal.ejs', {journalData: journalData, 
           listStudents: listStudents, journalDate: journalDate}) %>
-    <% } %>     
+    <% } %> 
+    <% if (main === 'diary') { %>
+        <%- include('main/diary.ejs', {name: name, learningWeeks:learningWeeks}) %>
+    <% } %>   
     </body>
      <% if (main === 'timetable') { %>
         <script type="module" src="/public/script/timetable.js"></script>
@@ -65,6 +73,12 @@
      <% if (main === 'journal') { %>
         <script type="module" src="/public/script/journal.js"></script>
      <% }%>
+     <% if (main === 'diary') { %>
+         <script type="module" src="/public/script/diary.js"></script>
+     <% }%>
+
+
+
     <footer>
         <h1>Контакты</h1>
         <address >
